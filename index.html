@@ -161,7 +161,7 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 /* CONTACT */
 #contact{padding:8rem 4rem;background:var(--surface);position:relative;overflow:hidden}
 #contact::after{display:none;}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;max-width:1200px;margin:0 auto;align-items:start}
+.contact-grid{display:grid;grid-template-columns:1fr;max-width:650px;margin:0 auto;align-items:start;}
 .contact-links{display:flex;flex-direction:column;gap:.7rem;margin-top:2rem}
 .clink{display:flex;align-items:center;gap:1.2rem;padding:1rem 1.3rem;border:1px solid var(--br);text-decoration:none;color:var(--text);transition:all .25s;position:relative;overflow:hidden;background:var(--bg)}
 .clink::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--gold);transition:width .3s ease;z-index:0}
@@ -481,15 +481,6 @@ footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-b
         </a>
       </div>
     </div>
-    <div class="contact-form reveal-right">
-      <h3>Send a Message</h3>
-      <form onsubmit="submitForm(event)">
-        <div class="fg"><label>Name</label><input type="text" placeholder="Your name"/></div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
-        <div class="fg"><label>Message</label><textarea placeholder="Tell me what you're building..."></textarea></div>
-        <button type="submit" class="form-btn"><span id="btnTxt">Send Message →</span></button>
-      </form>
-    </div>
   </div>
 </section>
 
@@ -616,14 +607,7 @@ function type(){
   setTimeout(type,del?38:78);
 }
 setTimeout(type,2600);
-
-// FORM
-function submitForm(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('.form-btn'),sp=document.getElementById('btnTxt');
-  sp.textContent='Message Sent ✓';btn.style.borderColor='#28c840';btn.style.color='#28c840';
-  setTimeout(()=>{sp.textContent='Send Message →';btn.style.cssText='';},3500);
-}
+  
 </script>
 </body>
 </html>
