@@ -135,30 +135,6 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 .tl-item:nth-child(odd) .tl-tags{justify-content:flex-end}
 .tl-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:3px 8px;background:var(--goldg);border:1px solid rgba(212,168,67,0.2);color:var(--gold);letter-spacing:.06em}
 
-
-/* HERO COMMAND CENTER */
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,430px);gap:4rem;align-items:center}
-.hero-copy{min-width:0}
-.hero-command{opacity:0;animation:up .9s ease .78s forwards;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid rgba(212,168,67,.18);box-shadow:0 26px 90px rgba(0,0,0,.38);padding:1.1rem;position:relative;overflow:hidden;backdrop-filter:blur(16px)}
-.hero-command::before,.hero-command::after{content:'';position:absolute;pointer-events:none}.hero-command::before{inset:0;background:radial-gradient(circle at var(--mx,70%) var(--my,20%),rgba(212,168,67,.18),transparent 55%);opacity:.95}.hero-command::after{inset:0;background:linear-gradient(rgba(212,168,67,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,.04) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(180deg,black,transparent 90%)}
-.command-top{position:relative;z-index:1;display:flex;align-items:center;gap:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-size:.62rem;margin-bottom:1rem}.live-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px var(--gold);animation:pulseDot 1.6s ease-in-out infinite}@keyframes pulseDot{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
-.command-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(212,168,67,.14);border:1px solid rgba(212,168,67,.12)}
-.command-metric{background:rgba(6,6,8,.82);padding:1.1rem;min-height:130px;display:flex;flex-direction:column;justify-content:space-between}.metric-kicker{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}.command-metric strong{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;line-height:.9;color:var(--white);letter-spacing:.03em}.command-metric span:last-child{font-size:.7rem;color:var(--muted);line-height:1.55}
-.command-flow{position:relative;z-index:1;margin-top:1rem;border:1px solid rgba(212,168,67,.14);background:rgba(0,0,0,.24);padding:.8rem;display:flex;align-items:center;justify-content:space-between;gap:.65rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text)}.command-flow i{height:1px;flex:1;background:linear-gradient(90deg,var(--gold),transparent)}
-
-/* PROOF / LOGO WALL */
-#proof{padding:7rem 4rem;background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%);border-top:1px solid var(--br);border-bottom:1px solid var(--br);position:relative;overflow:hidden}
-#proof::before{content:'';position:absolute;inset:auto -20% -30% -20%;height:420px;background:radial-gradient(circle,rgba(212,168,67,.1),transparent 60%);pointer-events:none}.proof-wrap{max-width:1200px;margin:0 auto;position:relative}.proof-top{display:grid;grid-template-columns:320px 1fr;gap:3rem;align-items:end;margin-bottom:2.5rem}.proof-copy p{color:var(--muted);line-height:1.8;max-width:740px;font-size:.95rem}.logo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}.logo-card{min-height:155px;padding:1.15rem;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01));border:1px solid var(--br);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease}.logo-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),var(--goldg),transparent 60%);opacity:0;transition:opacity .35s ease;pointer-events:none}.logo-card:hover{transform:translateY(-6px);border-color:rgba(212,168,67,.38);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));box-shadow:0 18px 45px rgba(0,0,0,.3)}.logo-card:hover::before{opacity:1}.logo-visual{height:70px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}.logo-visual img{max-width:100%;max-height:62px;object-fit:contain;opacity:.84;transition:transform .3s ease,opacity .3s ease,filter .3s ease;filter:drop-shadow(0 0 0 transparent)}.logo-card:hover .logo-visual img{opacity:1;transform:scale(1.04);filter:drop-shadow(0 0 18px rgba(212,168,67,.18))}.logo-meta{position:relative;z-index:1;display:flex;flex-direction:column;gap:.35rem;margin-top:1rem}.logo-name{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--white)}.logo-type{font-size:.72rem;color:var(--muted);line-height:1.5}
-
-/* IMPACT / CASE STUDIES */
-#impact{padding:8rem 4rem;background:var(--bg);position:relative;overflow:hidden}.impact-wrap{max-width:1200px;margin:0 auto}.impact-head{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:end;margin-bottom:3rem}.impact-sub{color:var(--muted);line-height:1.8;font-size:.95rem}.impact-lab{display:grid;grid-template-columns:360px 1fr;gap:1rem}.case-list{display:grid;gap:.8rem}.case-btn{cursor:pointer;text-align:left;border:1px solid var(--br);background:var(--surface);padding:1.05rem 1.1rem;color:var(--text);font-family:'Syne',sans-serif;transition:.25s;position:relative;overflow:hidden}.case-btn::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:.25s}.case-btn:hover,.case-btn.active{border-color:rgba(212,168,67,.42);background:var(--s2)}.case-btn.active::before{background:var(--gold)}.case-btn span{display:block;font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.35rem}.case-btn strong{display:block;color:var(--white);font-size:.98rem;margin-bottom:.3rem}.case-btn small{color:var(--muted);font-size:.72rem;line-height:1.45}.case-stage{border:1px solid var(--br);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01));min-height:480px;position:relative;overflow:hidden}.case-stage::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,75%) var(--my,20%),rgba(212,168,67,.15),transparent 55%);pointer-events:none}.case-panel{position:relative;z-index:1;padding:2rem}.case-kicker{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);margin-bottom:1rem}.case-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.3rem,5vw,4.4rem);line-height:.95;color:var(--white);letter-spacing:.04em;margin-bottom:1.3rem}.case-desc{font-size:.96rem;line-height:1.85;color:var(--text);max-width:720px;margin-bottom:1.5rem}.case-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(212,168,67,.14);border:1px solid rgba(212,168,67,.14);margin-bottom:1.5rem}.case-stat{background:rgba(6,6,8,.86);padding:1rem}.case-stat strong{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);display:block}.case-stat span{font-size:.68rem;line-height:1.5;color:var(--muted)}.case-stack{display:flex;flex-wrap:wrap;gap:.5rem}.case-stack span{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:var(--goldg);border:1px solid rgba(212,168,67,.2);padding:.35rem .55rem}.process-strip{margin-top:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(212,168,67,.13);border:1px solid rgba(212,168,67,.13)}.process-step{background:var(--surface);padding:1.1rem;min-height:130px}.process-step b{display:block;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--white);margin-bottom:.4rem}.process-step span{font-size:.72rem;color:var(--muted);line-height:1.6}
-
-/* ENHANCED CONTACT */
-.contact-links{gap:.75rem}.clink.resume-link{border-color:rgba(212,168,67,.34);background:linear-gradient(90deg,rgba(212,168,67,.12),transparent)}
-
-@media(max-width:1100px){nav{padding:1.3rem 2rem}.nav-links{gap:1.1rem}.hero-grid,.impact-head,.impact-lab,.proof-top{grid-template-columns:1fr}.hero-grid{padding-top:7rem;padding-bottom:5rem;gap:2.6rem}#hero{height:auto;min-height:100vh;overflow:visible}.logo-grid{grid-template-columns:repeat(3,1fr)}.hero-command{max-width:560px}.timeline::before{left:1.5rem}}
-@media(max-width:760px){.command-grid,.case-stats,.process-strip,.logo-grid{grid-template-columns:1fr}.hero-grid{padding-top:6rem}.hero-command{padding:.9rem}.command-metric{min-height:108px}.command-flow{flex-wrap:wrap}.command-flow i{min-width:32px}.impact-lab{gap:1.2rem}.case-stage{min-height:auto}.case-panel{padding:1.3rem}.proof-top{gap:1.5rem}}
-
 /* GAME */
 #game {
   padding: 6rem 4rem 4rem;
@@ -276,7 +252,7 @@ footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-b
   .nav-links.open{display:flex}
   .nav-links a{font-size:1rem;color:var(--white)}
   .hamburger{display:flex}
-  #hero,#about,#experience,#proof,#impact,#game,#contact{padding:5rem 1.5rem}
+  #hero,#about,#experience,#game,#contact{padding:5rem 1.5rem}
   .hero-inner{padding:0}
   footer{padding:1.5rem;flex-direction:column;gap:.8rem;text-align:center}
   .bento{grid-template-columns:1fr}
@@ -301,8 +277,6 @@ footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-b
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#proof">Proof</a></li>
-    <li><a href="#impact">Impact</a></li>
     <li><a href="#game">Arcade</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -312,49 +286,14 @@ footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-b
 <!-- HERO -->
 <section id="hero">
   <canvas id="particles"></canvas>
-  <div class="hero-inner hero-grid">
-    <div class="hero-copy">
-      <p class="hero-tag" id="heroTag">Product Analyst · Product Strategy · PM Systems</p>
-      <h1 class="hero-h1">Musaa<br/><em>Atif.</em></h1>
-      <p class="hero-sub">I turn messy product signals into clear decisions — dashboards, requirements, roadmaps, and systems that help teams ship smarter.</p>
-      <div class="hero-btns">
-        <a href="#experience" class="btn-g"><span>Explore My Work</span></a>
-        <a href="./assets/Musaa-Atif-Product-Analyst-Resume.pdf" target="_blank" class="btn-outline">Download Resume</a>
-        <a href="#contact" class="btn-outline">Let's Talk</a>
-      </div>
+  <div class="hero-inner">
+    <p class="hero-tag" id="heroTag">Product Analyst · Los Angeles, CA</p>
+    <h1 class="hero-h1">Musaa<br/><em>Atif.</em></h1>
+    <p class="hero-sub">I turn messy data into clear decisions, building systems that make products move.</p>
+    <div class="hero-btns">
+      <a href="#experience" class="btn-g"><span>Explore My Work</span></a>
+      <a href="#contact" class="btn-outline">Let's Talk</a>
     </div>
-
-    <aside class="hero-command" data-tilt aria-label="Product impact dashboard preview">
-      <div class="command-top">
-        <span class="live-dot"></span>
-        <span>Product impact console</span>
-      </div>
-      <div class="command-grid">
-        <div class="command-metric">
-          <span class="metric-kicker">Users</span>
-          <strong>100k+</strong>
-          <span>recommendations tied to product pain points</span>
-        </div>
-        <div class="command-metric">
-          <span class="metric-kicker">Reporting</span>
-          <strong>-40%</strong>
-          <span>manual dashboard work reduced</span>
-        </div>
-        <div class="command-metric">
-          <span class="metric-kicker">Backlog</span>
-          <strong>200+</strong>
-          <span>Jira tickets prioritized with scoring logic</span>
-        </div>
-        <div class="command-metric">
-          <span class="metric-kicker">SSO</span>
-          <strong>-30%</strong>
-          <span>sign-in time improved for 500+ employees</span>
-        </div>
-      </div>
-      <div class="command-flow">
-        <span>Signal</span><i></i><span>Prioritize</span><i></i><span>Ship</span><i></i><span>Measure</span>
-      </div>
-    </aside>
   </div>
   <div class="scroll-ind">
     <span>Scroll</span>
@@ -512,89 +451,11 @@ footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-b
   </div>
 </section>
 
-
-<!-- PROOF -->
-<section id="proof">
-  <div class="proof-wrap">
-    <div class="proof-top">
-      <div class="reveal-left">
-        <div class="sec-label"><span class="num">03</span> Proof</div>
-        <h2 class="sec-h2">Built across<br/><em>real teams.</em></h2>
-      </div>
-    </div>
-
-    <div class="logo-grid">
-      <div class="logo-card reveal" data-tilt>
-        <div class="logo-visual"><img src="./assets/logos/lahd.png" alt="Los Angeles Housing Department logo"></div>
-        <div class="logo-meta"><div class="logo-name">LAHD</div><div class="logo-type">Public sector systems · Jira · SSO · workflow operations</div></div>
-      </div>
-      <div class="logo-card reveal" data-tilt>
-        <div class="logo-visual"><img src="./assets/logos/sileria.png" alt="Sileria logo"></div>
-        <div class="logo-meta"><div class="logo-name">Sileria</div><div class="logo-type">Product analytics · KPI dashboards · user stories</div></div>
-      </div>
-      <div class="logo-card reveal" data-tilt>
-        <div class="logo-visual"><img src="./assets/logos/fika.png" alt="Fika Ventures logo"></div>
-        <div class="logo-meta"><div class="logo-name">Fika Ventures</div><div class="logo-type">Startup analysis · PMF research · investment insight</div></div>
-      </div>
-      <div class="logo-card reveal" data-tilt>
-        <div class="logo-visual"><img src="./assets/logos/nirman.png" alt="Nirman logo"></div>
-        <div class="logo-meta"><div class="logo-name">Nirman</div><div class="logo-type">Business exposure · brand systems · execution</div></div>
-      </div>
-      <div class="logo-card reveal" data-tilt>
-        <div class="logo-visual"><img src="./assets/logos/glazey.png" alt="Glazey Glass Company logo"></div>
-        <div class="logo-meta"><div class="logo-name">Glazey</div><div class="logo-type">Operator mindset · supplier experience · pricing & strategy</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- IMPACT -->
-<section id="impact">
-  <div class="impact-wrap">
-    <div class="impact-head">
-      <div class="reveal-left">
-        <div class="sec-label"><span class="num">04</span> Product Lab</div>
-        <h2 class="sec-h2">How I turn<br/><em>signals into systems.</em></h2>
-      </div>
-    </div>
-
-    <div class="impact-lab reveal">
-      <div class="case-list" role="tablist" aria-label="Product impact case studies">
-        <button class="case-btn active" data-case="dashboards" type="button"><span>01 / Analytics</span><strong>ServiceNow KPI dashboards</strong><small>Activation, retention, feature adoption, and manual reporting reduction.</small></button>
-        <button class="case-btn" data-case="intranet" type="button"><span>02 / PM Systems</span><strong>LAHD intranet roadmap</strong><small>200+ tickets, weighted scoring, 12-week roadmap, cross-functional delivery.</small></button>
-        <button class="case-btn" data-case="sso" type="button"><span>03 / UX + Ops</span><strong>Employee SSO redesign</strong><small>Authentication issue debugging and visual experience cleanup for 500+ employees.</small></button>
-        <button class="case-btn" data-case="venture" type="button"><span>04 / Strategy</span><strong>Venture product research</strong><small>Startup analysis through product strategy, PMF, workflow pain points, and growth signals.</small></button>
-      </div>
-
-      <div class="case-stage" data-tilt>
-        <div class="case-panel">
-          <div class="case-kicker" id="caseKicker">Analytics System</div>
-          <h3 class="case-title" id="caseTitle">ServiceNow KPI dashboards</h3>
-          <p class="case-desc" id="caseDesc">Built dashboards around activation, retention, and feature adoption so teams could see product health without manually pulling scattered reports.</p>
-          <div class="case-stats" id="caseStats">
-            <div class="case-stat"><strong>40%</strong><span>manual reporting time reduced</span></div>
-            <div class="case-stat"><strong>100k+</strong><span>users touched by recommendations</span></div>
-            <div class="case-stat"><strong>15+</strong><span>user stories and acceptance criteria</span></div>
-          </div>
-          <div class="case-stack" id="caseStack"><span>ServiceNow</span><span>KPI Design</span><span>Product Analytics</span><span>User Stories</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="process-strip reveal">
-      <div class="process-step"><b>Signal</b><span>Find patterns in tickets, user behavior, stakeholder feedback, and workflow friction.</span></div>
-      <div class="process-step"><b>Prioritize</b><span>Turn noise into a ranked backlog using impact, urgency, and feasibility.</span></div>
-      <div class="process-step"><b>Ship</b><span>Translate requirements into user stories, acceptance criteria, dashboards, and workflows.</span></div>
-      <div class="process-step"><b>Measure</b><span>Track adoption, retention, SLA movement, reporting time, and operational lift.</span></div>
-    </div>
-  </div>
-</section>
-
 <!-- GAME -->
 <section id="game">
   <div class="game-intro">
-    <div class="sec-label reveal"><span class="num">05</span> Interactive Build</div>
-    <h2 class="sec-h2 reveal">Python game,<br/><em>embedded live.</em></h2>
+    <div class="sec-label reveal"><span class="num">03</span> Try It Out</div>
+    <h2 class="sec-h2 reveal">I also built<br/><em>a game.</em></h2>
   </div>
   <div class="game-frame reveal">
     <div class="game-topbar">
@@ -623,8 +484,9 @@ footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-b
 <section id="contact">
   <div class="contact-grid">
     <div class="reveal-left">
-      <div class="sec-label"><span class="num">06</span> Contact</div>
+      <div class="sec-label"><span class="num">04</span> Contact</div>
       <h2 class="sec-h2">Let's build<br/><em>something.</em></h2>
+      <p style="font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:.5rem">Open to product roles, analytics opportunities, and conversations about AI, startups and systems. Based in LA — available now.</p>
       <div class="contact-links">
         <a href="mailto:musaaibnatif@gmail.com" class="clink">
           <div class="clink-inner">
@@ -632,16 +494,16 @@ footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-b
             <span><span class="clink-lbl">Email</span><span class="clink-val">musaaibnatif@gmail.com</span></span>
           </div>
         </a>
-        <a href="https://www.linkedin.com/in/musaaibnatif/" target="_blank" class="clink">
+        <a href="www.linkedin.com/in/musaaibnatif/" target="_blank" class="clink">
           <div class="clink-inner">
             <span class="clink-icon">💼</span>
             <span><span class="clink-lbl">LinkedIn</span><span class="clink-val">Connect with me →</span></span>
           </div>
         </a>
-        <a href="./assets/Musaa-Atif-Product-Analyst-Resume.pdf" target="_blank" class="clink resume-link">
+        <a href="https://github.com/musaaibnatif" target="_blank" class="clink">
           <div class="clink-inner">
-            <span class="clink-icon">↗</span>
-            <span><span class="clink-lbl">Resume</span><span class="clink-val">Download PDF →</span></span>
+            <span class="clink-icon">⌨</span>
+            <span><span class="clink-lbl">GitHub</span><span class="clink-val">View my code →</span></span>
           </div>
         </a>
       </div>
@@ -746,47 +608,21 @@ function countUp(el){
   })(t0);
 }
 
-// 3D TILT + GLOW TRACKING
-const canHover = window.matchMedia('(hover:hover)').matches;
-if(canHover){
-  document.querySelectorAll('[data-tilt]').forEach(card=>{
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
-      const x=e.clientX-r.left;
-      const y=e.clientY-r.top;
-      const rx=(y-r.height/2)/r.height*10;
-      const ry=(x-r.width/2)/r.width*10;
-      card.style.transform=`perspective(800px) rotateX(${-rx}deg) rotateY(${ry}deg) translateY(-2px)`;
-      card.style.setProperty('--mx',(x/r.width*100)+'%');
-      card.style.setProperty('--my',(y/r.height*100)+'%');
-    });
-    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+// 3D TILT
+document.querySelectorAll('.tl-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const rx=(e.clientY-r.top-r.height/2)/r.height*12;
+    const ry=(e.clientX-r.left-r.width/2)/r.width*12;
+    card.style.transform=`perspective(700px) rotateX(${-rx}deg) rotateY(${ry}deg) scale(1.02)`;
+    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
   });
-}
-
-// CASE STUDY SWITCHER
-const caseData={
-  dashboards:{kicker:'Analytics System',title:'ServiceNow KPI dashboards',desc:'Built dashboards around activation, retention, and feature adoption so teams could see product health without manually pulling scattered reports.',stats:[['40%','manual reporting time reduced'],['100k+','users touched by recommendations'],['15+','user stories and acceptance criteria']],stack:['ServiceNow','KPI Design','Product Analytics','User Stories']},
-  intranet:{kicker:'PM System',title:'LAHD intranet roadmap',desc:'Owned prioritization across 200+ Jira tickets, then translated stakeholder needs into a clear 12-week roadmap across 8 project phases for a cross-functional team.',stats:[['200+','Jira tickets prioritized'],['12','week roadmap'],['8','project phases managed']],stack:['Jira','Roadmapping','Weighted Scoring','Stakeholder Mgmt']},
-  sso:{kicker:'UX + Operations',title:'Employee SSO redesign',desc:'Improved the Single Sign-On experience by rebuilding the interface and helping debug authentication issues reported through Jira.',stats:[['500+','employees supported'],['30%','sign-in time reduced'],['16%','manual workflow intervention reduced']],stack:['SSO','UX Cleanup','Jira Debugging','ServiceNow Workflow']},
-  venture:{kicker:'Product Strategy',title:'Venture product research',desc:'Evaluated startups through product strategy, customer pain points, monetization, growth signals, and product-market fit to support investment prioritization.',stats:[['30+','startups evaluated'],['60M+','funding tied to Payabli'],['PMF','workflow pain point analysis']],stack:['Pitchbook','Crunchbase','PMF Research','Market Analysis']}
-};
-const caseBtns=document.querySelectorAll('[data-case]');
-const caseKicker=document.getElementById('caseKicker'),caseTitle=document.getElementById('caseTitle'),caseDesc=document.getElementById('caseDesc'),caseStats=document.getElementById('caseStats'),caseStack=document.getElementById('caseStack');
-caseBtns.forEach(btn=>btn.addEventListener('click',()=>{
-  const data=caseData[btn.dataset.case];
-  if(!data)return;
-  caseBtns.forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  caseKicker.textContent=data.kicker;
-  caseTitle.textContent=data.title;
-  caseDesc.textContent=data.desc;
-  caseStats.innerHTML=data.stats.map(s=>`<div class="case-stat"><strong>${s[0]}</strong><span>${s[1]}</span></div>`).join('');
-  caseStack.innerHTML=data.stack.map(s=>`<span>${s}</span>`).join('');
-}));
+  card.addEventListener('mouseleave',()=>{card.style.transform='';});
+});
 
 // TYPEWRITER
-const tags=['Product Analyst · Product Strategy · PM Systems','Data-Driven Builder','Dashboards · Roadmaps · User Stories','AI · Venture · Product Analytics'];
+const tags=['Product Analyst · Los Angeles, CA','Data-Driven Strategist','Builder of Products & Systems','AI & Investing Enthusiast'];
 let ti=0,ci=0,del=false;
 const tagEl=document.getElementById('heroTag');
 function type(){
