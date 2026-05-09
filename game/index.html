@@ -23,7 +23,7 @@ from pathlib import Path
 # do not rename
 async def custom_site():
     import embed
-    platform.document.body.style.background = "#7f7f7f"
+    platform.document.body.style.background = "#060608"
 
     platform.window.transfer.hidden = true
     platform.window.canvas.style.visibility = "visible"
@@ -70,8 +70,21 @@ async def custom_site():
         __import__(__name__).__file__ = main
 
         # now make a prompt
-        msg  = "Ready to start ! Please click/touch page"
-        platform.window.infobox.innerText = msg
+        msg = "Play Game"
+
+        platform.window.infobox.innerHTML = """
+<div class="game-launch-card">
+    <div class="game-launch-kicker">Arcade</div>
+    <div class="game-launch-title">A Knight’s Last Stand</div>
+    <div class="game-launch-desc">
+        Play directly in the browser.
+    </div>
+    <div class="game-launch-btn">
+        <span>Play Game</span>
+    </div>
+</div>
+"""
+
         print("\n"*4, f"    * Waiting for media user engagement. {msg} *" , "\n"*4)
 
         while not platform.window.MM.UME:
@@ -162,18 +175,11 @@ config = {
 }
 
 function show_infobox() {
-    infobox.style.display = "block";
-
-    // Measure box
-    const w = infobox.offsetWidth;
-    const h = infobox.offsetHeight;
-
-    // Center in viewport
-    const left = (window.innerWidth - w) / 2;
-    const top = (window.innerHeight - h) / 2;
-
-    infobox.style.left = left + "px";
-    infobox.style.top = top + "px";
+    infobox.style.display = "flex";
+    infobox.style.left = "0";
+    infobox.style.top = "0";
+    infobox.style.right = "0";
+    infobox.style.bottom = "0";
 }
 
 </script>
@@ -188,6 +194,10 @@ function show_infobox() {
 
 
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 
     <style>
         #status {
@@ -205,23 +215,84 @@ function show_infobox() {
         }
 
         #infobox {
-            position: fixed; /* center relative to viewport */
-            background: green;
-            color: blue;
-            font-weight: bold;
-            padding: 12px 24px;
- /*           display: none; */
+            position: fixed;
+            inset: 0;
             z-index: 999999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                radial-gradient(circle at 50% 45%, rgba(212,168,67,0.12), transparent 45%),
+                linear-gradient(135deg, #050507 0%, #0b0b12 50%, #050507 100%);
+
+            color: #c8c2b8;
+            font-family: 'Syne', sans-serif;
+            text-align: center;
+            cursor: pointer;
         }
+
+        .game-launch-card {
+            width: min(460px, 88%);
+            padding: 2.2rem 1.6rem;
+            border: 1px solid rgba(212,168,67,0.15);
+            background: rgba(13,13,20,0.96);
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0,0,0,0.45);
+        }
+
+        .game-launch-kicker {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .65rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: #d4a843;
+            margin-bottom: .9rem;
+        }
+
+        .game-launch-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: .06em;
+            color: #f5f0e8;
+            line-height: 1;
+            margin-bottom: .9rem;
+        }
+
+        .game-launch-desc {
+            font-size: .9rem;
+            line-height: 1.7;
+            color: #555568;
+            margin-bottom: 1.4rem;
+        }
+
+        .game-launch-btn {
+            display: inline-block;
+            padding: .95rem 2.2rem;
+            border: 1px solid #d4a843;
+            background: #d4a843;
+            color: #060608;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            transition: transform .2s ease, opacity .2s ease;
+        }
+
+        #infobox:hover .game-launch-btn {
+            transform: translateY(-2px);
+            opacity: .95;
+        }
+
         div.emscripten { text-align: center; }
         div.emscripten_border { border: 1px solid black; }
         div.thick_border { border: 4px solid black; }
 
         /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-        /* average size of droid screen 470dp x 320dp  */
         canvas.emscripten {
-            border: 0px none;
-            background-color: transparent;
+            border: 0 none;
+            background-color: #000;
             width: 100%;
             height: 100%;
             z-index: 5;
@@ -236,11 +307,19 @@ function show_infobox() {
             right: 0;
         }
 
+        /* kills the iframe scrollbars / gray page look */
+        html,
         body {
-            font-family: arial;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Syne', arial, sans-serif;
             margin: 0;
-            padding: none;
-            background-color:powderblue;
+            padding: 0;
+            background-color: #060608;
         }
 
         .topright{
@@ -312,7 +391,15 @@ height="720px"
     oncontextmenu="event.preventDefault()" tabindex=1 hidden>
     </canvas>
 
-    <div id="infobox">Loading, please wait ...</div>
+    <div id="infobox">
+        <div class="game-launch-card">
+            <div class="game-launch-kicker">Loading</div>
+            <div class="game-launch-title">A Knight’s Last Stand</div>
+            <div class="game-launch-desc">
+                Preparing the game...
+            </div>
+        </div>
+    </div>
 
     <div id=html></div>
 
