@@ -947,9 +947,9 @@ body,
 /* ── TRUE SEAMLESS LOGO CAROUSEL FIX ─────────────────── */
 
 #logos {
-  --logo-cell-w: 380px;
-  height: 115px !important;
-  --logo-speed: 42s;
+  --logo-cell-w: 340px;
+  height: 105px !important;
+  --logo-speed: 45s;
 
   padding: 0 !important;
   margin: 0 !important;
@@ -987,8 +987,8 @@ body,
 }
 
 #logos .logos-set {
-  gap: 10px !important;
-  padding-right: 10px !important;
+  gap: 6px !important;
+  padding-right: 6px !important;
   display: flex !important;
   flex-wrap: nowrap !important;
   flex: 0 0 auto !important;
@@ -1003,9 +1003,9 @@ body,
   min-width: var(--logo-cell-w) !important;
   max-width: none !important;
 
-  height: 115px !important;
-  min-height: 115px !important;
-  padding: 0 20px !important;
+  height: 105px !important;
+  min-height: 105px !important;
+  padding: 0 15px !important;
 
   display: flex !important;
   align-items: center !important;
@@ -1029,8 +1029,8 @@ body,
   display: block !important;
   height: auto !important;
   width: auto !important;
-  max-width: 330px !important;
-  max-height: 75px !important;
+  max-width: 260px !important;
+  max-height: 55px !important;
   object-fit: contain !important;
 
   filter: grayscale(1) brightness(1.6) contrast(0.82) opacity(0.4) !important;
@@ -1054,8 +1054,13 @@ body,
 
 @media (max-width: 768px) {
   #logos {
-    --logo-cell-w: 280px;
-    height: 95px !important;
+    --logo-cell-w: 220px;
+    height: 85px !important;
+  }
+
+  #logos .logos-set {
+    gap: 5px !important;
+    padding-right: 2px !important;
   }
 
   #logos .logo-cell {
@@ -1066,15 +1071,15 @@ body,
 
     height: 95px !important;
     min-height: 95px !important;
-    padding: 0 14px !important;
+    padding: 0 10px !important;
 
     border-right: 1px solid var(--br) !important;
     border-bottom: 0 !important;
   }
 
   #logos .logo-cell img {
-    max-width: 240px !important;
-    height: 40px !important;
+    max-width: 205px !important;
+    height: 50px !important;
     
   }
 }
