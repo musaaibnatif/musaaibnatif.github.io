@@ -589,9 +589,85 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   align-items:flex-start!important;
 }
 
-/* Keep the game itself controlled by /game/index.html — no portfolio-level play button. */
+/* Keep /game/index.html unloaded until the portfolio-level button is clicked. */
+.game-screen{
+  isolation:isolate!important;
+}
+
 .game-iframe{
   visibility:visible!important;
+}
+
+.game-load-overlay{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1.25rem;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(216,169,59,.13), transparent 48%),
+    linear-gradient(135deg,#060506 0%,#0b0907 55%,#060506 100%);
+  text-align:center;
+}
+
+.game-load-card{
+  width:min(420px,90%);
+  border:1px solid rgba(216,169,59,.18);
+  background:rgba(13,10,8,.94);
+  padding:2rem 1.45rem;
+  box-shadow:0 0 38px rgba(0,0,0,.42);
+}
+
+.game-load-kicker{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.58rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:.85rem;
+}
+
+.game-load-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.35rem;
+  line-height:1;
+  letter-spacing:.06em;
+  color:var(--white);
+  margin-bottom:.8rem;
+}
+
+.game-load-desc{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#8f8474;
+  margin-bottom:1.25rem;
+}
+
+.game-load-btn{
+  appearance:none;
+  border:1px solid var(--gold);
+  background:var(--gold);
+  color:var(--bg);
+  cursor:pointer;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  padding:.88rem 1.85rem;
+  transition:transform .22s ease, background .22s ease, opacity .22s ease;
+}
+
+.game-load-btn:hover{
+  transform:translateY(-2px);
+  background:var(--gold2);
+}
+
+.game-screen.game-loaded .game-load-overlay{
+  display:none!important;
 }
 
 @media(max-width:1024px){
@@ -867,6 +943,146 @@ body,
   }
 }
 
+
+/* ── FINAL LOGO CAROUSEL FIX 2026-05-10 ─────────────────────
+   Removes the header/gap and uses exactly two matching groups.
+   The track moves by -50%, so the second group starts immediately
+   when the first group exits. No empty seats after Nirman. */
+#logos{
+  padding:.9rem 0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  background:var(--surface)!important;
+  border-top:1px solid var(--br)!important;
+  border-bottom:1px solid var(--br)!important;
+  position:relative!important;
+}
+
+#logos::before,
+#logos::after{
+  content:''!important;
+  position:absolute!important;
+  top:0!important;
+  bottom:0!important;
+  width:min(120px,16vw)!important;
+  z-index:2!important;
+  pointer-events:none!important;
+}
+
+#logos::before{
+  left:0!important;
+  background:linear-gradient(to right,var(--surface),rgba(11,9,7,0))!important;
+}
+
+#logos::after{
+  right:0!important;
+  background:linear-gradient(to left,var(--surface),rgba(11,9,7,0))!important;
+}
+
+.logos-label{
+  display:none!important;
+  margin:0!important;
+}
+
+.logos-row{
+  max-width:none!important;
+}
+
+.logos-carousel-track{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  width:max-content!important;
+  max-width:none!important;
+  margin:0!important;
+  animation:logoCarouselFinal 34s linear infinite!important;
+  will-change:transform!important;
+}
+
+#logos:hover .logos-carousel-track{
+  animation-play-state:paused!important;
+}
+
+.logos-group{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  flex:0 0 auto!important;
+  width:max-content!important;
+  gap:0!important;
+}
+
+.logo-cell{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 220px!important;
+  width:220px!important;
+  min-width:220px!important;
+  max-width:none!important;
+  min-height:70px!important;
+  padding:.9rem 1.8rem!important;
+  border-right:1px solid var(--br)!important;
+  border-bottom:0!important;
+}
+
+.logo-cell img{
+  height:28px!important;
+  width:auto!important;
+  max-width:135px!important;
+  object-fit:contain!important;
+}
+
+@keyframes logoCarouselFinal{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .logos-carousel-track{
+    animation:none!important;
+    transform:none!important;
+  }
+}
+
+@media(max-width:768px){
+  #logos{
+    padding:.85rem 0!important;
+  }
+
+  .logos-carousel-track,
+  .logos-group{
+    flex-direction:row!important;
+    align-items:center!important;
+  }
+
+  .logo-cell{
+    flex:0 0 155px!important;
+    width:155px!important;
+    min-width:155px!important;
+    max-width:none!important;
+    min-height:64px!important;
+    padding:.8rem 1.1rem!important;
+    border-right:1px solid var(--br)!important;
+    border-bottom:0!important;
+  }
+
+  .logo-cell img{
+    height:24px!important;
+    max-width:110px!important;
+  }
+}
+
+@media(max-width:480px){
+  .logo-cell{
+    flex-basis:150px!important;
+    width:150px!important;
+    min-width:150px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1126,15 +1342,24 @@ body,
 </section>
 
 
-<!-- ───── LOGO WALL ───── -->
-<div id="logos" class="reveal">
-  <div class="logos-label">Companies &amp; Institutions</div>
-  <div class="logos-row">
-    <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
-    <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
-    <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
-    <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
-    <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
+<!-- ───── LOGO CAROUSEL ───── -->
+<div id="logos" class="reveal" aria-label="Companies and institutions carousel">
+  <div class="logos-carousel-track">
+    <div class="logos-group">
+      <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
+      <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
+      <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
+      <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
+      <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
+    </div>
+
+    <div class="logos-group" aria-hidden="true">
+      <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
+      <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
+      <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
+      <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
+      <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
+    </div>
   </div>
 </div>
 
@@ -1158,13 +1383,23 @@ body,
       <div class="game-body">
         <p class="mobile-game-note">Knightscroll is designed for desktop. Open this page on a laptop or monitor to play the embedded version.</p>
         <div class="game-screen" id="gameScreen">
+          <div class="game-load-overlay" id="gameLoadOverlay">
+            <div class="game-load-card">
+              <div class="game-load-kicker">Arcade</div>
+              <div class="game-load-title">A Knight&rsquo;s Last Stand</div>
+              <div class="game-load-desc">The game files stay unloaded until you choose to launch them.</div>
+              <button class="game-load-btn" id="loadGameBtn" type="button">Load Game</button>
+            </div>
+          </div>
+
           <iframe
             class="game-iframe"
             id="gameIframe"
-            src="./game/"
+            data-src="./game/"
+            src="about:blank"
             title="A Knight's Last Stand"
             scrolling="no"
-            loading="lazy"
+            tabindex="-1"
             allow="fullscreen"
           ></iframe>
         </div>
@@ -1334,6 +1569,20 @@ document.querySelectorAll('.btn-g,.btn-outline').forEach(btn=>{
   });
   btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
 });
+
+// ── GAME IFRAME LOAD GATE ────────────────────────────────
+const gameScreen=document.getElementById('gameScreen');
+const loadGameBtn=document.getElementById('loadGameBtn');
+const gameIframe=document.getElementById('gameIframe');
+if(gameScreen&&loadGameBtn&&gameIframe){
+  loadGameBtn.addEventListener('click',()=>{
+    if(!gameIframe.dataset.loaded){
+      gameIframe.dataset.loaded='true';
+      gameIframe.src=gameIframe.dataset.src;
+    }
+    gameScreen.classList.add('game-loaded');
+  });
+}
 
 // ── TYPEWRITER ───────────────────────────────────────────
 const tags=['Product Analyst · Product / Business / Data','Requirements → priorities → decisions','Tickets → patterns → product changes','Jira · ServiceNow · SQL · Python · Excel'];
