@@ -382,6 +382,325 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   .game-topbar{justify-content:center}
 }
 
+
+/* ── FINAL PATCH 2026-05-10 ─────────────────────────────
+   Fixes: hero card overlap, bridge title, section gaps,
+   Knightscroll spacing, descender clipping. */
+
+/* 1) Hero cards: stop PRODUCT/BUSINESS text from overlapping descriptions */
+@media(min-width:769px){
+  .hero-role-card{
+    min-height:120px!important;
+    grid-template-columns:1fr!important;
+    align-items:start!important;
+    gap:.45rem!important;
+  }
+
+  .hero-role-card .m-card-num{
+    font-size:3.35rem!important;
+    line-height:1.02!important;
+    white-space:nowrap!important;
+  }
+
+  .hero-role-card .m-card-lbl{
+    max-width:100%!important;
+    line-height:1.7!important;
+  }
+}
+
+/* 2) Bridge headline: make product/business/data one curly italic line */
+.bridge-head{
+  align-items:flex-end!important;
+}
+
+.bridge-head h2{
+  max-width:980px!important;
+  text-align:right!important;
+  line-height:.98!important;
+}
+
+.bridge-fancy-line{
+  display:block!important;
+  font-family:'Instrument Serif',serif!important;
+  font-style:italic!important;
+  font-weight:400!important;
+  color:var(--gold)!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+  line-height:1.16!important;
+  padding-bottom:.1em!important;
+}
+
+/* 3) Knightscroll intro: stable desktop + mobile layout */
+#game{
+  overflow-x:hidden!important;
+}
+
+.game-intro{
+  width:min(100%,1180px)!important;
+  max-width:1180px!important;
+  margin:0 auto 1.75rem!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,520px) minmax(0,620px)!important;
+  gap:2rem!important;
+  justify-content:center!important;
+  align-items:center!important;
+  overflow:visible!important;
+}
+
+.game-copy{
+  width:100%!important;
+  max-width:520px!important;
+  min-width:0!important;
+}
+
+.game-title-big{
+  max-width:100%!important;
+  font-size:clamp(3rem,4.6vw,4.5rem)!important;
+  line-height:1.02!important;
+  overflow:visible!important;
+}
+
+.game-title-big em{
+  display:block!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  line-height:1.12!important;
+  padding-bottom:.12em!important;
+}
+
+.game-desc{
+  max-width:500px!important;
+}
+
+.game-readout{
+  width:100%!important;
+  max-width:620px!important;
+  min-width:0!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:.85rem!important;
+}
+
+.game-readout article{
+  min-height:145px!important;
+  padding:1.15rem 1.25rem!important;
+  overflow:hidden!important;
+}
+
+.game-readout p{
+  font-size:.82rem!important;
+  line-height:1.65!important;
+}
+
+/* 4) Section spacing: remove the giant unused vertical gaps */
+#about{
+  padding-top:4.4rem!important;
+  padding-bottom:2.2rem!important;
+}
+
+.bridge-section{
+  padding-top:2.75rem!important;
+  padding-bottom:2.9rem!important;
+}
+
+#experience{
+  padding-top:4.5rem!important;
+  padding-bottom:3.25rem!important;
+}
+
+.exp-intro{
+  margin-bottom:2.25rem!important;
+}
+
+.tl-item{
+  margin-bottom:2rem!important;
+}
+
+.tl-item:last-child{
+  margin-bottom:0!important;
+}
+
+#logos{
+  padding-top:2rem!important;
+  padding-bottom:2rem!important;
+}
+
+#game{
+  padding-top:3.25rem!important;
+  padding-bottom:3.25rem!important;
+}
+
+#contact{
+  padding-top:3.1rem!important;
+  padding-bottom:3.1rem!important;
+}
+
+.bleed-down,
+.bleed-up,
+.bleed-surface-down{
+  height:18px!important;
+}
+
+/* 5) Descender clipping: stop g / y / p bottoms from being cut off */
+.hero-h1,
+.hero-h1 em,
+.sec-h2,
+.sec-h2 em,
+.game-title-big,
+.game-title-big em,
+.bridge-fancy-line{
+  overflow:visible!important;
+}
+
+.hero-h1 em,
+.sec-h2 em,
+.game-title-big em{
+  line-height:1.16!important;
+  padding-bottom:.1em!important;
+}
+
+.game-title-big{
+  line-height:1.04!important;
+}
+
+.about-body p,
+.bridge-card p,
+.game-desc,
+.game-readout p,
+.tl-bullets li,
+.contact-note,
+.m-card-lbl,
+.clink-val{
+  line-height:1.8!important;
+  padding-bottom:.04em!important;
+}
+
+.game-readout article,
+.bridge-card,
+.tl-card,
+.value-card,
+.clink{
+  overflow:visible!important;
+}
+
+.tl-bullets li{
+  align-items:flex-start!important;
+}
+
+/* Keep the game itself controlled by /game/index.html — no portfolio-level play button. */
+.game-iframe{
+  visibility:visible!important;
+}
+
+@media(max-width:1024px){
+  .bridge-head{
+    display:block!important;
+  }
+
+  .bridge-head h2{
+    text-align:left!important;
+    max-width:760px!important;
+    margin-top:.8rem!important;
+  }
+
+  .bridge-fancy-line{
+    white-space:normal!important;
+  }
+}
+
+@media(max-width:1100px){
+  .game-intro{
+    width:min(100%,760px)!important;
+    max-width:760px!important;
+    grid-template-columns:1fr!important;
+    gap:1.5rem!important;
+    justify-content:center!important;
+  }
+
+  .game-copy{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .game-title-big,
+  .game-title-big em{
+    max-width:100%!important;
+  }
+
+  .game-readout{
+    width:100%!important;
+    max-width:100%!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+@media(max-width:768px){
+  .game-readout{
+    grid-template-columns:1fr!important;
+    gap:.65rem!important;
+  }
+
+  .game-readout article{
+    min-height:auto!important;
+    padding:.9rem 1rem!important;
+  }
+
+  .game-readout span{
+    font-size:.56rem!important;
+    margin-bottom:.35rem!important;
+  }
+
+  .game-readout p{
+    font-size:.8rem!important;
+    line-height:1.55!important;
+  }
+}
+
+@media(max-width:640px){
+  #game{
+    padding-left:1rem!important;
+    padding-right:1rem!important;
+  }
+
+  .game-intro{
+    width:100%!important;
+    max-width:100%!important;
+    gap:1.25rem!important;
+  }
+
+  .game-title-big{
+    font-size:clamp(2.6rem,15vw,4rem)!important;
+    line-height:1!important;
+  }
+
+  .game-title-big em{
+    font-size:clamp(2.8rem,16vw,4.2rem)!important;
+    line-height:1.08!important;
+  }
+
+  .game-desc{
+    font-size:.9rem!important;
+    line-height:1.6!important;
+  }
+}
+
+@media(max-width:768px){
+  #about,
+  .bridge-section,
+  #experience,
+  #game,
+  #contact{
+    padding-top:3.25rem!important;
+    padding-bottom:3.25rem!important;
+  }
+
+  #logos{
+    padding:2rem 1.5rem!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -505,7 +824,10 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   <div class="bridge-inner reveal">
     <div class="bridge-head">
       <div class="sec-label">Focus Areas</div>
-      <h2>Three ways I connect product, business, and data.</h2>
+      <h2>
+        Three ways I connect<br/>
+        <em class="bridge-fancy-line">product, business, and data.</em>
+      </h2>
     </div>
     <div class="bridge-cards" aria-label="Product management, business analysis, and data focus cards">
       <article class="bridge-card">
