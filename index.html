@@ -1029,7 +1029,7 @@ body,
   max-width: 135px !important;
   object-fit: contain !important;
 
-  filter: grayscale(1) brightness(1.6) contrast(0.82) opacity(0.48) !important;
+  filter: grayscale(1) brightness(1.6) contrast(0.82) opacity(0.4) !important;
   transition: filter .35s ease, transform .35s ease !important;
 }
 
@@ -1088,7 +1088,21 @@ body,
     max-width: none !important;
   }
 }
+  
+/* Remove logo carousel borders */
+#logos {
+  border-top: none !important;
+  border-bottom: none !important;
+}
 
+#logos .logo-cell {
+  border-right: none !important;
+  border-bottom: none !important;
+}
+
+#logos .logo-cell:last-child {
+  border-right: none !important;
+}
 </style>
 </head>
 <body>
