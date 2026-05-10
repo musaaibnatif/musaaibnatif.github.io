@@ -28,8 +28,6 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:auto}
 
-/* ── SCROLL PROGRESS ─────────────────────────────────── */
-#scroll-prog{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--gold);z-index:9000;transition:width .05s linear;pointer-events:none}
 
 /* ── LOADER ──────────────────────────────────────────── */
 #loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .8s ease,visibility .8s ease}
@@ -61,7 +59,6 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 .hero-left{}
 .hero-tag-wrap{display:flex;align-items:center;gap:.75rem;margin-bottom:1.3rem;opacity:0;animation:up .7s ease .2s forwards}
 .hero-tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;min-height:1em}
-.status-pill{display:inline-flex;align-items:center;gap:.45rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(95,217,122,0.8);border:1px solid rgba(95,217,122,0.22);padding:.28rem .7rem;margin-left:1rem}
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulseDot 2.4s ease-in-out infinite}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,11rem);line-height:.88;color:var(--white);margin-bottom:1.4rem;opacity:0;animation:up .8s ease .35s forwards}
@@ -200,7 +197,6 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 .dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;display:block}
 .dots i:nth-child(1){background:#ff5f57}.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
 .topbar-title{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.1em}
-.game-controls{background:var(--s2);padding:.6rem 1.4rem;border-bottom:1px solid var(--br);font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-align:center}.game-controls span{color:var(--gold);margin-right:.4rem}
 .game-body{padding:1rem;display:flex;justify-content:center;flex-direction:column;align-items:center}
 .game-screen{width:min(780px,calc(100vw - 4rem));aspect-ratio:1000/800;margin:0 auto;background:#08080d;border:1px solid rgba(216,169,59,0.18);position:relative;overflow:hidden}
 .game-iframe{width:100%;height:100%;border:0;display:block;background:#000;overflow:hidden}
@@ -280,12 +276,115 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   .logos-row{flex-direction:column;align-items:center}
   .logo-cell{width:100%;max-width:100%;border-right:none}
 }
+
+/* ── FINAL CLEANUP OVERRIDES ─────────────────────────── */
+.avail-strip{display:none!important}
+.hero-tag-wrap{min-height:1.2rem}
+.hero-sub{max-width:520px;color:#9a8f7e;font-size:.98rem}
+.hero-role-stack{position:relative!important;width:min(360px,100%)!important;height:auto!important;display:grid!important;grid-template-columns:1fr!important;gap:.85rem!important}
+.hero-role-card{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;min-height:104px;padding:1.25rem 1.35rem!important;display:grid;grid-template-columns:84px 1fr;align-items:center;gap:1rem;animation:none!important;transform:none!important;background:linear-gradient(145deg,#120f0c,#080706)!important}
+.hero-role-card:hover{transform:translateX(-6px)!important;border-color:rgba(216,169,59,.45)}
+.hero-role-card .m-card-num{font-size:3.1rem;letter-spacing:.04em}
+.hero-role-card .m-card-lbl{font-size:.62rem;line-height:1.55;color:#8f8474;margin:0;text-transform:none;letter-spacing:.07em}
+
+#logos{padding:2.5rem 3.5rem;background:var(--surface);border-top:1px solid var(--br);border-bottom:1px solid var(--br)}
+.logo-cell{min-height:72px}
+
+#about{padding:5.25rem 3.5rem 3.25rem;background:var(--bg)}
+.about-clean-grid{grid-template-columns:.95fr 1.05fr;gap:3.5rem;max-width:1180px;align-items:start}
+.about-copy{max-width:540px}
+.about-tight p{font-size:.98rem;line-height:1.78;margin-bottom:1rem;color:#cfc5b6}
+.about-snapshot{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.35rem}
+.about-snapshot span{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.06em;color:var(--gold);border:1px solid rgba(216,169,59,.2);background:rgba(216,169,59,.055);padding:.42rem .65rem}
+.value-panel{border:1px solid var(--br);background:linear-gradient(145deg,#0d0a08,#080706);padding:1rem;position:relative;overflow:hidden}
+.value-panel::before{content:'';position:absolute;inset:0;background:var(--noise-url);opacity:.35;pointer-events:none}
+.value-panel-title{position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:.35rem .35rem .9rem;border-bottom:1px solid rgba(216,169,59,.12);margin-bottom:.75rem}
+.value-grid{display:grid;gap:.7rem;position:relative;z-index:1}
+.value-card{border:1px solid rgba(216,169,59,.12);background:rgba(0,0,0,.18);padding:1rem 1.1rem;transition:transform .22s,border-color .22s,background .22s;cursor:default}
+.value-card:hover{transform:translateX(6px);border-color:rgba(216,169,59,.38);background:rgba(216,169,59,.055)}
+.value-card h3{font-family:'Bebas Neue',sans-serif;color:var(--white);font-size:1.55rem;letter-spacing:.04em;margin:.15rem 0 .25rem}
+.value-card p{font-size:.84rem;line-height:1.58;color:#938877;max-width:560px}
+
+.bridge-section{padding:3.5rem 3.5rem 4rem;background:linear-gradient(180deg,var(--bg),var(--surface));border-top:1px solid rgba(216,169,59,.08);border-bottom:1px solid rgba(216,169,59,.12)}
+.bridge-inner{max-width:1180px;margin:0 auto}
+.bridge-head{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:1.4rem}
+.bridge-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.3rem);line-height:.95;color:var(--white);letter-spacing:.04em;max-width:560px;text-align:right}
+.bridge-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+.bridge-card{border:1px solid var(--br);background:#0d0a08;padding:1.25rem;min-height:190px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s,background .25s;cursor:default}
+.bridge-card::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.bridge-card:hover{transform:translateY(-6px);border-color:rgba(216,169,59,.42);background:#120e0a}
+.bridge-card:hover::after{transform:scaleX(1)}
+.bridge-code{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1;margin-bottom:1.2rem}
+.bridge-card h3{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin-bottom:.7rem}
+.bridge-card p{font-size:.86rem;line-height:1.65;color:#8f8474}
+
+.tl-logo{display:none!important}
+.timeline::before{background:rgba(216,169,59,.12)!important}
+.tl-progress{position:absolute;left:0;top:0;width:1px;height:0;background:var(--gold);transition:height .1s linear;pointer-events:none;z-index:2;box-shadow:0 0 18px rgba(216,169,59,.35)}
+.tl-card{cursor:default}
+.tl-card:hover .tl-metric-num{color:var(--gold2)}
+
+.game-case{align-items:stretch}
+.game-desc{font-family:'Syne',sans-serif;font-size:.94rem;color:#9a8f7e;line-height:1.75}
+.game-readout{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.game-readout article{border:1px solid rgba(216,169,59,.12);background:var(--surface);padding:1rem;min-height:128px;transition:transform .22s,border-color .22s,background .22s;position:relative;overflow:hidden;cursor:default}
+.game-readout article::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold-dim);transition:background .22s,width .22s}
+.game-readout article:hover{transform:translateY(-4px);border-color:rgba(216,169,59,.38);background:#120f0c}
+.game-readout article:hover::before{background:var(--gold);width:3px}
+.game-readout span{display:block;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.55rem}
+.game-readout p{font-size:.82rem;color:#928777;line-height:1.58}
+.game-body{flex-direction:column;align-items:center;gap:0}
+.mobile-game-note{width:100%;text-align:center;margin-bottom:.8rem}
+
+#contact{padding:3.5rem 3.5rem;background:var(--surface)}
+.contact-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:2rem;align-items:center;text-align:left}
+.contact-copy .sec-label{justify-content:flex-start!important}
+.contact-copy .sec-h2{text-align:left!important;margin-bottom:.7rem;font-size:clamp(2.4rem,4vw,3.7rem)}
+.contact-note{text-align:left;max-width:430px;margin:0;color:#8f8474;line-height:1.7}
+
+@media(max-width:1024px){.hero-right{display:flex}.hero-inner{grid-template-columns:1fr}.hero-role-stack{max-width:560px}.hero-role-card{grid-template-columns:72px 1fr}.about-clean-grid,.contact-inner{grid-template-columns:1fr}.bridge-head{display:block}.bridge-head h2{text-align:left;margin-top:.8rem}.bridge-cards{grid-template-columns:1fr}.game-readout{grid-template-columns:1fr}}
+@media(max-width:768px){#about,#bridge,#experience,#game,#contact{padding-left:1.5rem!important;padding-right:1.5rem!important}.hero-right{display:none}.value-card:hover,.bridge-card:hover,.game-readout article:hover{transform:none}.game-body{padding:.75rem;display:flex;flex-direction:column;align-items:center}.mobile-game-note{display:block}.game-screen{width:min(780px,calc(100vw - 4rem));max-width:100%;aspect-ratio:1000/800}.game-frame{max-width:calc(100vw - 2rem)}}
+@media(max-width:520px){.bridge-card{min-height:160px}.game-readout article{min-height:auto}.about-snapshot span{font-size:.53rem}.hero-role-card{grid-template-columns:1fr}.hero-role-card .m-card-lbl{text-transform:none}}
+
+
+/* ── REQUESTED FIXES 2026-05-09 ─────────────────────── */
+#scroll-prog{display:none!important}
+.hero-role-stack{width:min(430px,100%)!important;display:grid!important;gap:.9rem!important}
+.hero-role-card{min-height:96px!important;grid-template-columns:92px 1fr!important;background:linear-gradient(145deg,#12100d,#090806)!important;border-color:rgba(216,169,59,.18)!important}
+.hero-role-card .m-card-num{font-size:3.35rem!important}
+.hero-role-card .m-card-lbl{font-size:.68rem!important;line-height:1.45!important;color:#b5aa99!important}
+#about{padding:5.25rem 3.5rem 2.6rem!important}
+.about-clean-grid{gap:3rem!important;align-items:center!important}
+.about-lens{border:1px solid var(--br);background:linear-gradient(145deg,#0d0a08,#070606);padding:1.1rem;position:relative;overflow:hidden}
+.about-lens::before{content:'';position:absolute;inset:0;background:var(--noise-url);opacity:.28;pointer-events:none}
+.about-lens-title{position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:.3rem .2rem .9rem;border-bottom:1px solid rgba(216,169,59,.13);margin-bottom:.35rem}
+.lens-row{position:relative;z-index:1;display:grid;grid-template-columns:44px 1fr;gap:.85rem;padding:1rem .25rem;border-bottom:1px solid rgba(216,169,59,.1);transition:background .22s,transform .22s,border-color .22s}
+.lens-row:last-child{border-bottom:0}
+.lens-row:hover{background:rgba(216,169,59,.055);transform:translateX(5px);border-color:rgba(216,169,59,.25)}
+.lens-row span{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:var(--gold-dim);line-height:1}
+.lens-row strong{display:block;color:var(--white);font-size:.95rem;margin-bottom:.24rem}
+.lens-row em{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:.58rem;letter-spacing:.08em;color:#8f8474}
+.bridge-section{padding:3rem 3.5rem 4.25rem!important}
+.bridge-card{min-height:172px!important}
+.timeline::before{background:rgba(216,169,59,.18)!important}
+.tl-progress{background:linear-gradient(180deg,var(--gold),var(--gold2))!important;width:2px!important;box-shadow:0 0 18px rgba(216,169,59,.42)!important}
+.tl-card:hover{transform:translateX(8px)!important;border-color:rgba(216,169,59,.42)!important}
+.game-desc{max-width:650px!important;color:#a99d8d!important}
+.game-readout article{min-height:118px!important}
+.mobile-game-note{line-height:1.55}
+@media(max-width:768px){
+  .hero-role-stack{display:none!important}
+  .about-clean-grid{gap:2rem!important}
+  .lens-row:hover{transform:none}
+  .game-screen{display:none!important}
+  .mobile-game-note{display:block!important;border:1px solid rgba(216,169,59,.22);background:#0d0a08;padding:1rem 1.2rem;margin:0 auto;max-width:460px;color:var(--gold2)!important}
+  .game-frame{width:100%!important;max-width:100%!important}
+  .game-topbar{justify-content:center}
+}
+
 </style>
 </head>
 <body>
-
-<!-- scroll progress -->
-<div id="scroll-prog"></div>
 
 <!-- loader -->
 <div id="loader">
@@ -312,29 +411,28 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-tag-wrap">
-        <span class="hero-tag" id="heroTag">Product Analyst · Los Angeles, CA</span>
-        <span class="status-pill"><span class="status-dot"></span>Available</span>
+        <span class="hero-tag" id="heroTag">Product Analyst · PM / BA / Data</span>
       </div>
       <h1 class="hero-h1">Musaa<br/><em>Atif.</em></h1>
-      <p class="hero-sub">I turn messy data into clear decisions — building systems that make products move.</p>
+      <p class="hero-sub">Product-focused analyst who turns tickets, user data, stakeholder requests, and workflow issues into clearer priorities and better product decisions.</p>
       <div class="hero-btns">
         <a href="#experience" class="btn-g"><span>Explore My Work</span></a>
         <a href="assets/Musaa-Atif-Product-Analyst-Resume.pdf" target="_blank" class="btn-outline">Download CV</a>
       </div>
     </div>
     <div class="hero-right">
-      <div class="metric-stack">
-        <div class="m-card">
-          <div class="m-card-num">100k+</div>
-          <div class="m-card-lbl">Users Impacted</div>
+      <div class="metric-stack hero-role-stack">
+        <div class="m-card hero-role-card">
+          <div class="m-card-num">PRODUCT</div>
+          <div class="m-card-lbl">Scope, tradeoffs, requirements, measurable outcomes</div>
         </div>
-        <div class="m-card">
-          <div class="m-card-num">$60M+</div>
-          <div class="m-card-lbl">Investment Influenced</div>
+        <div class="m-card hero-role-card">
+          <div class="m-card-num">BUSINESS</div>
+          <div class="m-card-lbl">Stakeholder needs, workflow gaps, cleaner processes</div>
         </div>
-        <div class="m-card">
-          <div class="m-card-num">40%</div>
-          <div class="m-card-lbl">Reporting Time Saved</div>
+        <div class="m-card hero-role-card">
+          <div class="m-card-num">DATA</div>
+          <div class="m-card-lbl">Dashboards, ticket trends, adoption signals, KPIs</div>
         </div>
       </div>
     </div>
@@ -344,25 +442,6 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
     <div class="scroll-line"></div>
   </div>
 </section>
-
-<!-- ───── LOGO WALL ───── -->
-<div id="logos" class="reveal">
-  <div class="logos-label">Companies &amp; Institutions</div>
-  <div class="logos-row">
-    <div class="logo-cell">
-      <img src="assets/logos/sileria.png" alt="Sileria"/>
-    </div>
-    <div class="logo-cell">
-      <img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/>
-    </div>
-    <div class="logo-cell">
-      <img src="assets/logos/glazey.png" alt="Glazey"/>
-    </div>
-    <div class="logo-cell">
-      <img src="assets/logos/fika.png" alt="Fika Ventures"/>
-    </div>
-  </div>
-</div>
 
 <!-- ───── SKILL MARQUEE ───── -->
 <div class="marquee-wrap">
@@ -394,62 +473,67 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 
 <!-- ───── ABOUT ───── -->
 <section id="about">
-  <div class="about-grid">
-    <div class="reveal-left">
+  <div class="about-grid about-clean-grid">
+    <div class="about-copy reveal-left">
       <div class="sec-label">About Me</div>
-      <h2 class="sec-h2">Data-driven.<br/><em>User-obsessed.</em></h2>
-      <div class="about-body">
-        <p>I'm a <strong>Product Analyst</strong> focused on turning user problems, support data, and stakeholder needs into clear product decisions. My work spans dashboards, requirements, user stories, Jira workflows, and process improvements.</p>
-        <p>I graduated from <strong>UC Irvine</strong> in Business Economics and have experience across public-sector systems, venture/startup analysis, and enterprise tools. I like building useful systems — and occasionally fun ones too, like the game below.</p>
-      </div>
-      <div class="creds" id="credsContainer">
-        <div class="cred-item"><div class="cred-title">B.A. Business Economics — UC Irvine</div><div class="cred-sub">Sep 2023 – Mar 2026</div></div>
-        <div class="cred-item"><div class="cred-title">SOC Analyst Bootcamp — Per Scholas</div><div class="cred-sub">Mar – Jun 2026</div></div>
-        <div class="cred-item"><div class="cred-title">AWS Cloud Practitioner</div><div class="cred-sub">Certified · Active</div></div>
-        <div class="cred-item"><div class="cred-title">CompTIA CySA+</div><div class="cred-sub">In Progress</div></div>
+      <h2 class="sec-h2">I bring structure to messy product work.<br/></h2>
+      <div class="about-body about-tight">
+        <p>I’m a product analyst with a Business Economics background from UC Irvine.</p>
+        <p>I specialize in translating user data into actionable product insights, building dashboards, and working cross-functionally to improve user experience and product performance.</p>
       </div>
     </div>
-    <div class="reveal-right">
-      <div class="bento">
-        <div class="bento-hero reveal-scale" id="bentoHero">
-          <div class="bento-hero-num" data-count="100" data-suffix="k+">—</div>
-          <div class="bento-hero-lbl">Users Impacted</div>
-          <p class="metric-note">Analyzed product signals and support data to surface friction points and recommend workflow improvements.</p>
-          <div class="bento-hero-underline"></div>
-        </div>
-        <div class="bento-cell reveal-scale">
-          <div class="bento-num" data-count="40" data-suffix="%">—</div>
-          <div class="bento-label">Reporting Time Saved</div>
-          <p class="metric-note">Built KPI dashboards that made product performance easier to monitor.</p>
-        </div>
-        <div class="bento-cell reveal-scale">
-          <div class="bento-num" data-count="60" data-suffix="M+">—</div>
-          <div class="bento-label">Funding Influenced</div>
-          <p class="metric-note">Supported startup analysis through product, market, and workflow research.</p>
-        </div>
-        <div class="bento-cell reveal-scale">
-          <div class="bento-num" data-count="15" data-suffix="+">—</div>
-          <div class="bento-label">User Stories Defined</div>
-          <p class="metric-note">Translated stakeholder needs into product-ready acceptance criteria.</p>
-        </div>
-        <div class="bento-cell reveal-scale">
-          <div class="bento-num" data-count="200" data-suffix="+">—</div>
-          <div class="bento-label">Tickets Prioritized</div>
-          <p class="metric-note">Used structured prioritization to organize technical and business needs.</p>
-        </div>
-        <div class="bento-quote">Signal → Insight → Product Decision</div>
+
+    <div class="about-lens reveal-right" aria-label="What Musaa does">
+      <div class="about-lens-title">What I actually do</div>
+      <div class="lens-row">
+        <span>01</span>
+        <div><strong>Make the ask clear</strong><em>requirements · user stories · acceptance criteria</em></div>
+      </div>
+      <div class="lens-row">
+        <span>02</span>
+        <div><strong>Find what is slowing people down</strong><em>tickets · workflows · usage patterns</em></div>
+      </div>
+      <div class="lens-row">
+        <span>03</span>
+        <div><strong>Turn evidence into next steps</strong><em>dashboards · priorities · process changes</em></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="bleed-surface-down"></div>
+<section id="bridge" class="bridge-section">
+  <div class="bridge-inner reveal">
+    <div class="bridge-head">
+      <div class="sec-label">Focus Areas</div>
+      <h2>Three ways I connect product, business, and data.</h2>
+    </div>
+    <div class="bridge-cards" aria-label="Product management, business analysis, and data focus cards">
+      <article class="bridge-card">
+        <div class="bridge-code">PRODUCT</div>
+        <h3>Turn ambiguity into a plan</h3>
+        <p>Define scope, tradeoffs, requirements, and outcomes teams can actually build toward.</p>
+      </article>
+      <article class="bridge-card">
+        <div class="bridge-code">BUSINESS</div>
+        <h3>Make operations easier to run</h3>
+        <p>Map workflows, document gaps, and translate stakeholder needs into cleaner processes.</p>
+      </article>
+      <article class="bridge-card">
+        <div class="bridge-code">DATA</div>
+        <h3>Show what changed</h3>
+        <p>Use dashboards, ticket trends, and adoption signals to support better product decisions.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ───── EXPERIENCE ───── -->
 <section id="experience">
   <div class="exp-intro">
     <div class="sec-label reveal">Experience</div>
-    <h2 class="sec-h2 reveal">Where I've<br/><em>Made Impact.</em></h2>
+    <h2 class="sec-h2 reveal">Where I've<br/>Made Impact.</h2>
   </div>
 
   <div class="timeline" id="timeline">
@@ -462,7 +546,6 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
         <div class="tl-card-top">
           <div class="tl-card-meta">
             <div class="tl-co-row">
-              <img class="tl-logo" src="assets/logos/sileria.png" alt="Sileria"/>
               <span class="tl-co">Sileria, Inc.</span>
             </div>
             <div class="tl-role">Product Analyst</div>
@@ -494,15 +577,14 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
         <div class="tl-card-top">
           <div class="tl-card-meta">
             <div class="tl-co-row">
-              <img class="tl-logo" src="assets/logos/lahd.png" alt="LAHD"/>
               <span class="tl-co">LA Housing Department</span>
             </div>
             <div class="tl-role">Systems Software Support Intern</div>
             <div class="tl-date">Aug 2023 – Jan 2025 · Los Angeles, CA</div>
           </div>
           <div class="tl-metric">
-            <div class="tl-metric-num">30%</div>
-            <div class="tl-metric-lbl">Sign-In Time Saved</div>
+            <div class="tl-metric-num">16%</div>
+            <div class="tl-metric-lbl">Reduction in Manual Intervention</div>
           </div>
         </div>
         <ul class="tl-bullets">
@@ -527,7 +609,6 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
         <div class="tl-card-top">
           <div class="tl-card-meta">
             <div class="tl-co-row">
-              <img class="tl-logo" src="assets/logos/fika.png" alt="Fika Ventures"/>
               <span class="tl-co">Fika Ventures</span>
             </div>
             <div class="tl-role">Product &amp; Investment Intern</div>
@@ -547,7 +628,7 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
           <span class="tl-tag">Venture Capital</span>
           <span class="tl-tag">Startup Analysis</span>
           <span class="tl-tag">Pitchbook</span>
-          <span class="tl-tag">Crunchbase</span>
+          <span class="tl-tag">Product-thinking</span>
         </div>
       </div>
     </div>
@@ -555,29 +636,42 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   </div><!-- /timeline -->
 </section>
 
+
+<!-- ───── LOGO WALL ───── -->
+<div id="logos" class="reveal">
+  <div class="logos-label">Companies &amp; Institutions</div>
+  <div class="logos-row">
+    <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
+    <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
+    <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
+    <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
+    <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
+  </div>
+</div>
+
 <div class="bleed-down"></div>
 
 <!-- ───── GAME ───── -->
 <section id="game">
-  <div class="game-intro">
+  <div class="game-intro game-case">
     <div class="game-copy reveal-left">
       <div class="game-tag">Playable Side Project</div>
-      <h2 class="game-title-big">Built for fun.<br/><em>Presented with purpose.</em></h2>
-      <p class="game-desc">A browser-playable Python/pygame project compiled with pygbag/WASM. It stays on the site as a fun break, but it also shows how I think: define the user experience, manage constraints, optimize performance, and ship.</p>
+      <h2 class="game-title-big">Knightscroll<br/><em>as a product exercise.</em></h2>
+      <p class="game-desc">A browser-playable Python embed. Give it a try!</p>
     </div>
-    <ul class="game-bullets reveal-right">
-      <li>Shipped a playable web MVP from a Python game loop using pygbag/WASM.</li>
-      <li>Improved browser performance with cached sprites, masks, glows, HUD labels, and frame timing.</li>
-      <li>Designed progression systems around shrines, bosses, powerups, clear goals, and player feedback.</li>
-      <li>Balanced scope like a product: simple controls, visible outcomes, and a desktop-friendly embedded experience.</li>
-    </ul>
+    <div class="game-readout reveal-right" aria-label="Knightscroll product readout">
+      <article><span>Interactive Break</span><p>A small playable section to enhance visitor experience.</p></article>      
+      <article><span>Clear Design</span><p>The goal is clear and progress is visible, user-centric design.</p></article>
+      <article><span>Zero Setup</span><p>It runs directly in the browser with no download, account, install, or separate app required.</p></article>      
+      <article><span>Technical Constraint</span><p>Built for browser performance with tuned assets, timing, and cached effects for smoother play.</p></article>
+    </div>
   </div>
 
   <div class="game-stack reveal">
     <span class="game-tag-chip">Python</span>
-    <span class="game-tag-chip">pygame</span>
-    <span class="game-tag-chip">pygbag / WASM</span>
+    <span class="game-tag-chip">WASM</span>
     <span class="game-tag-chip">UX Feedback</span>
+    <span class="game-tag-chip">Usability</span>
     <span class="game-tag-chip">Performance Tuning</span>
     <span class="game-tag-chip">Systems Thinking</span>
   </div>
@@ -587,13 +681,8 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
       <div class="dots"><i></i><i></i><i></i></div>
       <div class="topbar-title">knightscroll / main.py</div>
     </div>
-    <div class="game-controls">
-      <span>← →</span> Move &nbsp;·&nbsp;
-      <span>Space</span> Attack &nbsp;·&nbsp;
-      <span>↑</span> Jump
-    </div>
     <div class="game-body">
-      <p class="mobile-game-note">Best played on desktop.</p>
+      <p class="mobile-game-note">Knightscroll is designed for desktop. Open this page on a laptop or monitor to play the embedded version.</p>
       <div class="game-screen" id="gameScreen">
         <iframe
           class="game-iframe"
@@ -614,14 +703,10 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 <!-- ───── CONTACT ───── -->
 <section id="contact">
   <div class="contact-inner">
-    <div class="reveal">
-      <div class="sec-label" style="justify-content:center">Contact</div>
-      <h2 class="sec-h2" style="text-align:center">Let's build<br/><em>something.</em></h2>
-      <div class="avail-strip">
-        <span class="status-dot"></span>
-        Available for Product, Business Analyst, and Product Analyst roles · LA or remote
-      </div>
-      <p style="font-size:.93rem;color:var(--muted);line-height:1.82;text-align:center">Open to PM, BA, and product analytics opportunities. Based in Los Angeles — available now.</p>
+    <div class="reveal contact-copy">
+      <div class="sec-label">Contact</div>
+      <h2 class="sec-h2">Let’s talk.</h2>
+      <p class="contact-note">For product, analyst, or business-facing roles, email is the fastest way to reach me. My resume is linked below.</p>
     </div>
     <div class="contact-links reveal">
       <a href="mailto:musaaibnatif@gmail.com" class="clink">
@@ -658,12 +743,6 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 // ── LOADER ──────────────────────────────────────────────
 setTimeout(()=>document.getElementById('loader').classList.add('done'),1900);
 
-// ── SCROLL PROGRESS ─────────────────────────────────────
-const progBar=document.getElementById('scroll-prog');
-window.addEventListener('scroll',()=>{
-  const pct=scrollY/(document.body.scrollHeight-innerHeight)*100;
-  progBar.style.width=pct+'%';
-},{ passive:true });
 
 // ── NAV SCROLL ───────────────────────────────────────────
 window.addEventListener('scroll',()=>{
@@ -767,7 +846,7 @@ document.querySelectorAll('.btn-g,.btn-outline').forEach(btn=>{
 });
 
 // ── TYPEWRITER ───────────────────────────────────────────
-const tags=['Product Analyst · Los Angeles, CA','Data-Driven Strategist','Builder of Products & Systems','PM / BA Candidate'];
+const tags=['Product Analyst · Product / Business / Data','Requirements → priorities → decisions','Tickets → patterns → product changes','Jira · ServiceNow · SQL · Python · Excel'];
 let ti=0,ci=0,del=false;
 const tagEl=document.getElementById('heroTag');
 function type(){
