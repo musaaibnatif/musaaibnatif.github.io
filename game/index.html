@@ -1,1353 +1,536 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Musaa Atif - Product Management | Analytics</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#060506;
-  --surface:#0b0907;
-  --s2:#120f0c;
-  --s3:#19130d;
-  --gold:#d8a93b;
-  --gold2:#f1c86a;
-  --goldg:rgba(216,169,59,0.11);
-  --gold-dim:#7a5a22;
-  --text:#d7cec0;
-  --white:#f7efe3;
-  --muted:#756b5b;
-  --br:rgba(216,169,59,0.16);
-  --green:#78d98a;
-  --noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:hidden;cursor:auto}
+<html lang="en-us"><script src="https://pygame-web.github.io/cdn/0.9.3/pythons.js" type=module id="site" data-python="python3.12" data-LINES=42 data-COLUMNS=132 data-os="vtx,snd,gui" async defer>#<!--
+
+print("""
+Loading knightscroll-main2 from knightscroll-main2.apk
+    Pygbag Version : 0.9.3
+    Template Version : 0.9.3
+    Python  : 3.12
+    CDN URL : https://pygame-web.github.io/cdn/0.9.3/
+    Screen  : 1000x800
+    Title   : knightscroll-main2
+    Folder  : knightscroll-main2
+    Authors : pgw
+    SPDX-License-Identifier: cookiecutter.spdx
+
+""")
+
+import sys
+import asyncio
+import platform
+import json
+from pathlib import Path
+
+# do not rename
+async def custom_site():
+    import embed
+    platform.document.body.style.background = "#060608"
+
+    platform.window.transfer.hidden = true
+    platform.window.canvas.style.visibility = "visible"
 
 
-/* ── LOADER ──────────────────────────────────────────── */
-#loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .8s ease,visibility .8s ease}
-#loader.done{opacity:0;visibility:hidden}
-.loader-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,7rem);color:var(--white);letter-spacing:.15em;opacity:0;animation:loaderFade .6s ease .3s forwards}
-.loader-bar{width:200px;height:1px;background:rgba(212,168,67,0.18);position:relative;overflow:hidden}
-.loader-bar-fill{position:absolute;left:0;top:0;height:100%;width:0;background:var(--gold);animation:loaderSlide 1.5s ease .5s forwards}
-@keyframes loaderFade{to{opacity:1}}
-@keyframes loaderSlide{to{width:100%}}
+    bundle = "knightscroll-main2"
+
+    # the C or js loader could do that but be explicit.
+    appdir = Path(f"/data/data/{bundle}") # /data/data/knightscroll-main2
+    appdir.mkdir()
 
 
-/* ── NAV ─────────────────────────────────────────────── */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
-nav.scrolled{background:rgba(6,6,8,0.88);backdrop-filter:blur(18px);padding:1rem 3.5rem;border-bottom-color:var(--br)}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.22em;color:rgba(255,255,255,0.5);text-decoration:none;transition:color .2s}
-.nav-logo:hover{color:var(--gold)}
-.nav-links{display:flex;gap:2.2rem;list-style:none}
-.nav-links a{color:rgba(255,255,255,0.38);text-decoration:none;font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;transition:color .2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .25s ease;transform-origin:left}
-.nav-links a:hover{color:var(--gold)}
-.nav-links a:hover::after{transform:scaleX(1)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600}
-.hamburger span{width:22px;height:1px;background:var(--white);display:block;transition:.3s}
+    # unpack filesystem from compressed archive into work dir
+    if platform.window.location.host.find('.itch.zone')>0:
+        import zipfile
+        async with platform.fopen("knightscroll-main2.apk", "rb") as archive:
+            with zipfile.ZipFile(archive) as zip_ref:
+                zip_ref.extractall(appdir.as_posix())
+    else:
+        import tarfile
+        async with platform.fopen("knightscroll-main2.tar.gz", "rb") as archive:
+            tar = tarfile.open(fileobj=archive, mode="r:gz")
+            tar.extractall(path=appdir.as_posix(), filter='tar')
+            tar.close()
 
-/* ── HERO ────────────────────────────────────────────── */
-#hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;overflow:hidden}
-canvas#particles{position:absolute;inset:0;z-index:0}
-.hero-inner{position:relative;z-index:2;padding:0 3.5rem;max-width:1280px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.hero-left{}
-.hero-tag-wrap{display:flex;align-items:center;gap:.75rem;margin-bottom:1.3rem;opacity:0;animation:up .7s ease .2s forwards}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;min-height:1em}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulseDot 2.4s ease-in-out infinite}
-@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,11rem);line-height:.88;color:var(--white);margin-bottom:1.4rem;opacity:0;animation:up .8s ease .35s forwards}
-.hero-h1 em{color:var(--gold);display:block;font-family:'Bebas Neue',sans-serif;font-style:normal;font-size:clamp(3.2rem,8vw,7.5rem);line-height:1.05;font-feature-settings:normal}
-.hero-sub{max-width:420px;font-size:.97rem;color:var(--muted);line-height:1.8;margin-bottom:2.4rem;opacity:0;animation:up .8s ease .5s forwards}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:up .8s ease .65s forwards}
-.btn-g{padding:.82rem 2.1rem;background:var(--gold);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:400;transition:all .25s;position:relative;overflow:hidden;display:inline-block}
-.btn-g::before{content:'';position:absolute;inset:0;background:var(--white);transform:translateX(-101%);transition:transform .3s ease}
-.btn-g:hover::before{transform:translateX(0)}
-.btn-g span{position:relative;z-index:1}
-.btn-outline{padding:.82rem 2.1rem;border:1px solid var(--br);color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;transition:all .25s;display:inline-block}
-.btn-outline:hover{border-color:var(--gold);background:var(--goldg)}
+    # preloader will change to work dir and prepend it to sys.path
+    platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
 
-/* hero right – floating metric cards */
-.hero-right{opacity:0;animation:up .9s ease .8s forwards;position:relative;display:flex;align-items:center;justify-content:center}
-.metric-stack{position:relative;width:320px;height:340px}
-.m-card{position:absolute;background:var(--s2);border:1px solid var(--br);padding:1.4rem 1.8rem;backdrop-filter:blur(8px);transition:transform .3s ease}
-.m-card::before{content:'';position:absolute;inset:0;background:var(--noise-url);opacity:.035;pointer-events:none}
-.m-card-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);line-height:1;letter-spacing:.04em}
-.m-card-lbl{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
-.m-card:nth-child(1){top:0;left:0;width:200px;animation:floatA 6s ease-in-out infinite}
-.m-card:nth-child(2){top:80px;right:0;width:190px;animation:floatB 7s ease-in-out infinite}
-.m-card:nth-child(3){bottom:0;left:30px;width:210px;animation:floatC 5.5s ease-in-out infinite}
-@keyframes floatA{0%,100%{transform:translateY(0px) rotate(-1deg)}50%{transform:translateY(-10px) rotate(-1deg)}}
-@keyframes floatB{0%,100%{transform:translateY(0px) rotate(1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
-@keyframes floatC{0%,100%{transform:translateY(0px) rotate(-.5deg)}50%{transform:translateY(-8px) rotate(-.5deg)}}
-@media(prefers-reduced-motion:reduce){.m-card{animation:none!important}}
 
-.scroll-ind{position:absolute;bottom:2.5rem;right:3.5rem;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:up .8s ease 1.1s forwards}
-.scroll-ind span{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
-.scroll-line{width:1px;height:0;background:var(--gold);animation:scrollGrow 2.2s ease-in-out infinite}
-@keyframes scrollGrow{0%,100%{height:0;opacity:1}50%{height:48px;opacity:.5}}
+    # wait preloading complete : that includes images and wasm compilation of bundled modules
+    while embed.counter()<0:
+        await asyncio.sleep(.1)
 
-/* ── SECTION DIVIDER GLYPH ───────────────────────────── */
-.sec-div{display:flex;align-items:center;justify-content:center;padding:1.2rem 0;border-top:1px solid var(--br);border-bottom:1px solid var(--br);background:var(--surface)}
-.sec-div span{font-size:.5rem;color:var(--gold-dim);letter-spacing:.5em}
+    main = appdir / "assets" / "main.py"
 
-/* ── LOGO WALL ───────────────────────────────────────── */
-#logos{padding:3.5rem 3.5rem;background:var(--surface);border-top:1px solid var(--br);border-bottom:1px solid var(--br)}
-.logos-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:2.4rem}
-.logos-row{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;max-width:1100px;margin:0 auto}
-.logo-cell{flex:1;min-width:140px;max-width:220px;display:flex;align-items:center;justify-content:center;padding:1.2rem 2rem;border-right:1px solid var(--br);transition:all .35s ease;position:relative}
-.logo-cell:last-child{border-right:none}
-.logo-cell img{height:28px;width:auto;max-width:130px;object-fit:contain;filter:grayscale(1) brightness(1.6) contrast(0.82) opacity(0.48);transition:filter .35s ease,transform .35s ease}
-.logo-cell:hover img{filter:grayscale(0) brightness(1) contrast(1) opacity(1);transform:translateY(-3px) scale(1.04)}
-.logo-cell::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%) scaleX(0);width:60%;height:1px;background:var(--gold);transition:transform .3s ease}
-.logo-cell:hover::after{transform:translateX(-50%) scaleX(1)}
+    # TODO: test for window.webkitAudioContext and block aio loop until gesture if accessing media manager play
+    # before a gesture is recorded ( touch or click )
 
-/* ── SKILL MARQUEE ───────────────────────────────────── */
-.marquee-wrap{overflow:hidden;padding:.6rem 0;background:var(--bg);border-bottom:1px solid var(--br)}
-.marquee-track{display:flex;gap:2.8rem;width:max-content;animation:marquee 28s linear infinite}
-.marquee-item{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.22em;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:1.8rem}
-.marquee-item::after{content:'◆';color:var(--gold-dim);font-size:.38rem}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    # Always wait for the actual Play Game click inside /game/index.html.
+    # This prevents the game from starting just because the iframe loaded or the user scrolled past it.
+    __import__(__name__).__file__ = main
 
-/* ── ABOUT ───────────────────────────────────────────── */
-#about{padding:9rem 3.5rem;background:var(--bg);position:relative;overflow:hidden}
-.about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:8rem;max-width:1280px;margin:0 auto;align-items:center}
-.sec-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;display:flex;align-items:center;gap:10px}
-.sec-label .num{font-size:.58rem;opacity:.5}
-.sec-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,6vw,5.2rem);line-height:.93;color:var(--white);margin-bottom:2.1rem}
-.sec-h2 em{font-family:'Bebas Neue',sans-serif;font-style:normal;color:var(--gold);display:block;font-feature-settings:normal}
-.about-body p{font-size:.96rem;line-height:1.88;color:var(--text);margin-bottom:1.1rem}
-.about-body strong{color:var(--white);font-weight:600}
-.creds{margin-top:2.2rem;display:flex;flex-direction:column;gap:.55rem}
-.cred-item{padding:.95rem 1.3rem;border:1px solid var(--br);background:var(--surface);position:relative;overflow:hidden;transition:border-color .25s,transform .25s;opacity:0;transform:translateX(-20px)}
-.cred-item.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease,border-color .25s}
-.cred-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transition:width .25s}
-.cred-item:hover{border-color:rgba(212,168,67,0.4);transform:translateX(4px)}
-.cred-item:hover::before{width:3px}
-.cred-title{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);letter-spacing:.07em;margin-bottom:2px}
-.cred-sub{font-size:.76rem;color:var(--muted)}
+    platform.window.infobox.innerHTML = """
+<div class="game-launch-card">
+    <div class="game-launch-kicker">Arcade</div>
+    <div class="game-launch-title">A Knight&rsquo;s Last Stand</div>
+    <div class="game-launch-desc">
+        Play directly in the browser.
+    </div>
+    <div class="game-launch-btn">
+        <span>Play Game</span>
+    </div>
+</div>
+"""
 
-/* bento – cleaner impact cards */
-.bento{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;background:transparent}
-.bento-cell,.bento-hero{background:linear-gradient(145deg,#130f0b 0%,#080706 100%);border:1px solid var(--br);padding:1.55rem;position:relative;overflow:hidden;min-height:145px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .25s,border-color .25s,background .25s}
-.bento-hero{grid-column:1/-1;min-height:165px}
-.bento-cell::before,.bento-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(216,169,59,.12),transparent 52%);opacity:.75;pointer-events:none}
-.bento-cell::after,.bento-hero::after{content:'';position:absolute;inset:0;background:var(--noise-url);opacity:.55;pointer-events:none}
-.bento-cell:hover,.bento-hero:hover{transform:translateY(-3px);border-color:rgba(216,169,59,.38);background:linear-gradient(145deg,#17120d 0%,#090706 100%)}
-.bento-hero-num,.bento-num{font-family:'Bebas Neue',sans-serif;color:var(--gold);line-height:1;letter-spacing:.03em;position:relative;z-index:1}
-.bento-hero-num{font-size:4.4rem}.bento-num{font-size:3rem}
-.bento-hero-lbl,.bento-label{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1;margin-top:.35rem}
-.metric-note{font-size:.76rem;color:var(--text);line-height:1.55;margin-top:.8rem;position:relative;z-index:1;max-width:360px}
-.bento-hero-underline{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--gold);transition:width .5s ease}
-.bento-hero.in .bento-hero-underline{width:100%}
-.bento-quote{grid-column:1/-1;background:transparent;border:1px solid var(--br);padding:1.05rem 1.3rem;font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);line-height:1.5}
+    platform.window.infobox.style.display = "flex"
 
-/* ── EXPERIENCE ──────────────────────────────────────── */
-#experience{padding:9rem 3.5rem;background:var(--surface);position:relative}
-.exp-intro{max-width:1280px;margin:0 auto 5rem}
-/* vertical timeline */
-.timeline{max-width:900px;margin:0 auto;position:relative;padding-left:2.5rem}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--br)}
-.tl-progress{position:absolute;left:0;top:0;width:1px;height:0;background:var(--gold);transition:height .1s linear;pointer-events:none;z-index:1}
-.tl-item{position:relative;margin-bottom:3.5rem}
-.tl-dot{position:absolute;left:-2.5rem;top:1.4rem;transform:translateX(-50%)}
-.tl-dot-inner{width:12px;height:12px;border:2px solid var(--gold-dim);background:var(--surface);transform:rotate(45deg);transition:background .3s,border-color .3s}
-.tl-item:hover .tl-dot-inner{background:var(--gold);border-color:var(--gold)}
-.tl-card{background:var(--s3);border:1px solid var(--br);padding:2rem 2rem 1.6rem;transition:border-color .3s,transform .25s,box-shadow .3s;position:relative;overflow:hidden}
-.tl-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold-dim);transition:width .25s,background .25s}
-.tl-card::after{content:'';position:absolute;inset:0;background:var(--noise-url);opacity:1;pointer-events:none}
-.tl-card:hover{border-color:rgba(212,168,67,0.38);transform:translateX(4px);box-shadow:0 8px 40px rgba(0,0,0,.4)}
-.tl-card:hover::before{width:3px;background:var(--gold)}
-.tl-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;gap:1rem}
-.tl-card-meta{}
-.tl-co-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.3rem}
-.tl-logo{height:20px;width:auto;max-width:70px;object-fit:contain;filter:grayscale(1) brightness(1.8) opacity(.5);flex-shrink:0}
-.tl-co{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-.tl-role{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--white);line-height:1.0;letter-spacing:.04em;margin-bottom:.2rem}
-.tl-date{font-family:'JetBrains Mono',monospace;font-size:.59rem;color:var(--muted)}
-.tl-metric{flex-shrink:0;text-align:right}
-.tl-metric-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);line-height:1;letter-spacing:.04em}
-.tl-metric-lbl{font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.tl-bullets{list-style:none;margin-bottom:1.2rem}
-.tl-bullets li{font-size:.83rem;color:var(--text);padding:.38rem 0;border-bottom:1px solid rgba(212,168,67,0.05);display:flex;gap:.65rem;line-height:1.6;align-items:baseline;position:relative;z-index:1}
-.tl-bullets li:last-child{border-bottom:none}
-.tl-bullets li::before{content:'→';color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.65rem;flex-shrink:0;margin-top:.05rem}
-.tl-tags{display:flex;flex-wrap:wrap;gap:5px;position:relative;z-index:1}
-.tl-tag{font-family:'JetBrains Mono',monospace;font-size:.56rem;padding:3px 8px;background:var(--goldg);border:1px solid rgba(212,168,67,0.18);color:var(--gold);letter-spacing:.06em}
+    print("\n"*4, "    * Waiting for Play Game click. *" , "\n"*4)
 
-/* ── GAME ────────────────────────────────────────────── */
-#game{padding:7rem 3.5rem 5rem;background:var(--bg)}
-.game-intro{max-width:1200px;margin:0 auto 2.4rem;display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:end}
-.game-copy{max-width:620px}.game-tag{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
-.game-title-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,4.5rem);line-height:.95;color:var(--white);letter-spacing:.04em;margin-bottom:1rem}
-.game-title-big em{font-family:'Bebas Neue',sans-serif;font-style:normal;color:var(--gold);display:block;font-feature-settings:normal}
-.game-desc{font-size:.9rem;color:var(--muted);line-height:1.75;font-family:'JetBrains Mono',monospace;max-width:620px}
-.game-bullets{list-style:none;display:grid;gap:.55rem}
-.game-bullets li{font-size:.78rem;color:var(--text);padding:.72rem .85rem;border:1px solid rgba(216,169,59,.12);background:var(--surface);display:flex;gap:.6rem;line-height:1.55}
-.game-bullets li::before{content:'→';color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.65rem;flex-shrink:0;margin-top:.05rem}
-.game-stack{display:flex;flex-wrap:wrap;gap:5px;margin:1.2rem auto 2rem;max-width:1200px;justify-content:center}
-.game-tag-chip{font-family:'JetBrains Mono',monospace;font-size:.56rem;padding:4px 9px;background:var(--goldg);border:1px solid rgba(216,169,59,0.18);color:var(--gold);letter-spacing:.06em}
-.game-frame{width:fit-content;max-width:calc(100vw - 2rem);margin:0 auto;border:1px solid var(--br);background:var(--surface);overflow:hidden}
-.game-topbar{background:var(--s2);padding:.85rem 1.5rem;display:flex;align-items:center;gap:1.5rem;border-bottom:1px solid var(--br)}
-.dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;display:block}
-.dots i:nth-child(1){background:#ff5f57}.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
-.topbar-title{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.1em}
-.game-body{padding:1rem;display:flex;justify-content:center;flex-direction:column;align-items:center}
-.game-screen{width:min(780px,calc(100vw - 4rem));aspect-ratio:1000/800;margin:0 auto;background:#08080d;border:1px solid rgba(216,169,59,0.18);position:relative;overflow:hidden}
-.game-iframe{width:100%;height:100%;border:0;display:block;background:#000;overflow:hidden}
-.mobile-game-note{display:none;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);margin-bottom:1rem;text-align:center}
-@media(max-width:900px){.game-intro{grid-template-columns:1fr}.game-bullets{margin-top:.5rem}}
-@media(max-width:768px){.game-body{padding:.75rem}.mobile-game-note{display:block}.game-screen{max-width:100%}}
+    while not platform.window.KNIGHTSCROLL_PLAY_REQUESTED:
+        await asyncio.sleep(.1)
 
-/* ── CONTACT ─────────────────────────────────────────── */
-#contact{padding:9rem 3.5rem;background:var(--surface);position:relative;overflow:hidden}
-#contact::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(212,168,67,0.05) 0%,transparent 70%);pointer-events:none}
-.contact-inner{max-width:580px;margin:0 auto;text-align:center}
-.avail-strip{display:inline-flex;align-items:center;gap:.6rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(95,217,122,0.7);border:1px solid rgba(95,217,122,0.18);padding:.35rem 1rem;margin-bottom:2.5rem}
-.contact-links{display:flex;flex-direction:column;gap:.65rem;margin-top:2.8rem}
-.clink{display:flex;align-items:center;gap:1.2rem;padding:.95rem 1.4rem;border:1px solid var(--br);text-decoration:none;color:var(--text);transition:all .25s;position:relative;overflow:hidden;background:var(--bg);text-align:left}
-.clink::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--gold);transition:width .3s ease;z-index:0}
-.clink:hover{border-color:var(--gold);color:var(--bg)}
-.clink:hover::before{width:100%}
-.clink-inner{position:relative;z-index:1;display:flex;align-items:center;gap:.9rem;width:100%}
-.clink-icon{font-size:.9rem;min-width:20px;text-align:center}
-.clink-lbl{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;transition:color .25s;line-height:1.2}
-.clink:hover .clink-lbl{color:rgba(6,6,8,0.55)}
-.clink-val{font-size:.83rem;line-height:1.3}
-.clink-arr{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);transition:color .25s,transform .25s}
-.clink:hover .clink-arr{color:var(--bg);transform:translateX(3px)}
+    while not platform.window.MM.UME:
+        await asyncio.sleep(.1)
 
-/* ── FOOTER ──────────────────────────────────────────── */
-footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--br);background:var(--bg)}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.22em;color:var(--gold-dim)}
-.footer-copy{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.08em}
+    # start async top level machinery if not started and add a console in any case if requested.
+    await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
 
-/* ── REVEAL ANIMATIONS ───────────────────────────────── */
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .85s ease,transform .85s ease}
-.reveal.in{opacity:1;transform:none}
-.reveal-left{opacity:0;transform:translateX(-36px);transition:opacity .85s ease,transform .85s ease}
-.reveal-left.in{opacity:1;transform:none}
-.reveal-right{opacity:0;transform:translateX(36px);transition:opacity .85s ease,transform .85s ease}
-.reveal-right.in{opacity:1;transform:none}
-.reveal-scale{opacity:0;transform:scale(.95);transition:opacity .8s ease,transform .8s ease}
-.reveal-scale.in{opacity:1;transform:none}
-@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+    # now that apk is mounted we have access to font cache
+    # but we need to fill __file__/__name__ that are not yet set
+    __import__(__name__).__file__ = main
 
-/* ── SECTION GRADIENT BLEEDS ─────────────────────────── */
-.bleed-down{height:60px;background:linear-gradient(to bottom,var(--surface),var(--bg))}
-.bleed-up{height:60px;background:linear-gradient(to top,var(--surface),var(--bg))}
-.bleed-surface-down{height:60px;background:linear-gradient(to bottom,var(--bg),var(--surface))}
 
-/* ── RESPONSIVE ──────────────────────────────────────── */
-@media(max-width:1024px){
-  .hero-inner{grid-template-columns:1fr;gap:3rem}
-  .hero-right{display:none}
-  .about-grid{grid-template-columns:1fr;gap:3.5rem}
-  .game-layout{grid-template-columns:1fr;gap:2.5rem}
-}
-@media(max-width:768px){
-  nav{padding:1.2rem 1.5rem;background:rgba(6,6,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--br)}
-  nav.scrolled{padding:1rem 1.5rem}
-  .nav-links{display:none;position:fixed;inset:0;background:rgba(6,6,8,0.97);align-items:center;justify-content:center;flex-direction:column;gap:2.5rem;z-index:590}
-  .nav-links.open{display:flex}
-  .nav-links a{font-size:.95rem;color:var(--white)}
-  .hamburger{display:flex}
-  #hero,#about,#experience,#game,#contact{padding:5.5rem 1.5rem}
-  #logos{padding:3rem 1.5rem}
-  .logos-row{gap:0}
-  .logo-cell{min-width:100px;padding:.8rem 1rem;border-bottom:1px solid var(--br);border-right:none}
-  .logo-cell:last-child{border-bottom:none}
-  .hero-inner{padding:0}
-  footer{padding:1.5rem;flex-direction:column;gap:.7rem;text-align:center}
-  .bento{grid-template-columns:1fr}
-  .bento-hero{grid-column:1}
-  .bento-quote{grid-column:1}
-  .timeline{padding-left:1.5rem}
-  .tl-dot{left:-1.5rem}
-  .mobile-game-note{display:block}
-}
-@media(max-width:480px){
-  .hero-btns{flex-direction:column;align-items:flex-start}
-  .logos-row{flex-direction:column;align-items:center}
-  .logo-cell{width:100%;max-width:100%;border-right:none}
+    def ui_callback(pkg):
+        platform.window.infobox.innerText = f"installing {pkg}"
+
+    await shell.source(main, callback=ui_callback)
+
+    # if you don't reach that step
+    # your main.py has an infinite sync loop somewhere !
+
+    platform.window.infobox.style.display = "none"
+    platform.window.config.gui_divider = 1
+    platform.window.window_resize()
+    print("default.tmpl: done")
+
+    shell.interactive()
+
+asyncio.run( custom_site() )
+
+
+
+
+
+
+
+
+
+
+
+
+# BEGIN BLOCK
+#
+# now this is the html part you can (and should) customize
+# It is not mandatory : pygame-script when it reads the first line (also called
+# shebang ) of above code create absolute minimal widget set
+# required for running with default rules
+#
+# do not alter that comment block it is separating python code from html code
+# =============================================================================
+# --></script><head><!--
+//=============================================================================
+//
+//
+//
+//
+//
+//
+//
+
+    {%- if cookiecutter.comment != "" -%}
+{{cookiecutter.comment}}
+    {% endif %}
+
+--><script type="application/javascript">
+// END BLOCK
+
+
+
+// this dict is available under PyConfig.config from __main__
+
+config = {
+    xtermjs : "1" ,
+    _sdl2 : "canvas",
+    user_canvas : 0,
+    user_canvas_managed : 0,
+    gui_divider : 2,
+    ume_block : 1,
+    can_close : 0,
+    archive : "knightscroll-main2",
+    gui_debug : 2,
+    cdn : "https://pygame-web.github.io/cdn/0.9.3/",
+    autorun : 0,
+    PYBUILD : "3.12",
+    fb_ar   :  1.25,
+    fb_width : "1000",
+    fb_height : "800"
 }
 
-/* ── FINAL CLEANUP OVERRIDES ─────────────────────────── */
-.avail-strip{display:none!important}
-.hero-tag-wrap{min-height:1.2rem}
-.hero-sub{max-width:520px;color:#9a8f7e;font-size:.98rem}
-.hero-role-stack{position:relative!important;width:min(360px,100%)!important;height:auto!important;display:grid!important;grid-template-columns:1fr!important;gap:.85rem!important}
-.hero-role-card{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;min-height:104px;padding:1.25rem 1.35rem!important;display:grid;grid-template-columns:84px 1fr;align-items:center;gap:1rem;animation:none!important;transform:none!important;background:linear-gradient(145deg,#120f0c,#080706)!important}
-.hero-role-card:hover{transform:translateX(-6px)!important;border-color:rgba(216,169,59,.45)}
-.hero-role-card .m-card-num{font-size:3.1rem;letter-spacing:.04em}
-.hero-role-card .m-card-lbl{font-size:.62rem;line-height:1.55;color:#8f8474;margin:0;text-transform:none;letter-spacing:.07em}
-
-#logos{padding:2.5rem 3.5rem;background:var(--surface);border-top:1px solid var(--br);border-bottom:1px solid var(--br)}
-.logo-cell{min-height:72px}
-
-#about{padding:5.25rem 3.5rem 3.25rem;background:var(--bg)}
-.about-clean-grid{grid-template-columns:.95fr 1.05fr;gap:3.5rem;max-width:1180px;align-items:start}
-.about-copy{max-width:540px}
-.about-tight p{font-size:.98rem;line-height:1.78;margin-bottom:1rem;color:#cfc5b6}
-.about-snapshot{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.35rem}
-.about-snapshot span{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.06em;color:var(--gold);border:1px solid rgba(216,169,59,.2);background:rgba(216,169,59,.055);padding:.42rem .65rem}
-.value-panel{border:1px solid var(--br);background:linear-gradient(145deg,#0d0a08,#080706);padding:1rem;position:relative;overflow:hidden}
-.value-panel::before{content:'';position:absolute;inset:0;background:var(--noise-url);opacity:.35;pointer-events:none}
-.value-panel-title{position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:.35rem .35rem .9rem;border-bottom:1px solid rgba(216,169,59,.12);margin-bottom:.75rem}
-.value-grid{display:grid;gap:.7rem;position:relative;z-index:1}
-.value-card{border:1px solid rgba(216,169,59,.12);background:rgba(0,0,0,.18);padding:1rem 1.1rem;transition:transform .22s,border-color .22s,background .22s;cursor:default}
-.value-card:hover{transform:translateX(6px);border-color:rgba(216,169,59,.38);background:rgba(216,169,59,.055)}
-.value-card h3{font-family:'Bebas Neue',sans-serif;color:var(--white);font-size:1.55rem;letter-spacing:.04em;margin:.15rem 0 .25rem}
-.value-card p{font-size:.84rem;line-height:1.58;color:#938877;max-width:560px}
-
-.bridge-section{padding:3.5rem 3.5rem 4rem;background:linear-gradient(180deg,var(--bg),var(--surface));border-top:1px solid rgba(216,169,59,.08);border-bottom:1px solid rgba(216,169,59,.12)}
-.bridge-inner{max-width:1180px;margin:0 auto}
-.bridge-head{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:1.4rem}
-.bridge-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.3rem);line-height:.95;color:var(--white);letter-spacing:.04em;max-width:560px;text-align:right}
-.bridge-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
-.bridge-card{border:1px solid var(--br);background:#0d0a08;padding:1.25rem;min-height:190px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s,background .25s;cursor:default}
-.bridge-card::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s}
-.bridge-card:hover{transform:translateY(-6px);border-color:rgba(216,169,59,.42);background:#120e0a}
-.bridge-card:hover::after{transform:scaleX(1)}
-.bridge-code{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1;margin-bottom:1.2rem}
-.bridge-card h3{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin-bottom:.7rem}
-.bridge-card p{font-size:.86rem;line-height:1.65;color:#8f8474}
-
-.tl-logo{display:none!important}
-.timeline::before{background:rgba(216,169,59,.12)!important}
-.tl-progress{position:absolute;left:0;top:0;width:1px;height:0;background:var(--gold);transition:height .1s linear;pointer-events:none;z-index:2;box-shadow:0 0 18px rgba(216,169,59,.35)}
-.tl-card{cursor:default}
-.tl-card:hover .tl-metric-num{color:var(--gold2)}
-
-.game-case{align-items:stretch}
-.game-desc{font-family:'JetBrains Mono',monospace;font-size:.94rem;color:#9a8f7e;line-height:1.75}
-.game-readout{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.game-readout article{border:1px solid rgba(216,169,59,.12);background:var(--surface);padding:1rem;min-height:128px;transition:transform .22s,border-color .22s,background .22s;position:relative;overflow:hidden;cursor:default}
-.game-readout article::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold-dim);transition:background .22s,width .22s}
-.game-readout article:hover{transform:translateY(-4px);border-color:rgba(216,169,59,.38);background:#120f0c}
-.game-readout article:hover::before{background:var(--gold);width:3px}
-.game-readout span{display:block;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.55rem}
-.game-readout p{font-size:.82rem;color:#928777;line-height:1.58}
-.game-body{flex-direction:column;align-items:center;gap:0}
-.mobile-game-note{width:100%;text-align:center;margin-bottom:.8rem}
-
-#contact{padding:3.5rem 3.5rem;background:var(--surface)}
-.contact-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:2rem;align-items:center;text-align:left}
-.contact-copy .sec-label{justify-content:flex-start!important}
-.contact-copy .sec-h2{text-align:left!important;margin-bottom:.7rem;font-size:clamp(2.4rem,4vw,3.7rem)}
-.contact-note{text-align:left;max-width:430px;margin:0;color:#8f8474;line-height:1.7}
-
-@media(max-width:1024px){.hero-right{display:flex}.hero-inner{grid-template-columns:1fr}.hero-role-stack{max-width:560px}.hero-role-card{grid-template-columns:72px 1fr}.about-clean-grid,.contact-inner{grid-template-columns:1fr}.bridge-head{display:block}.bridge-head h2{text-align:left;margin-top:.8rem}.bridge-cards{grid-template-columns:1fr}.game-readout{grid-template-columns:1fr}}
-@media(max-width:768px){#about,#bridge,#experience,#game,#contact{padding-left:1.5rem!important;padding-right:1.5rem!important}.hero-right{display:none}.value-card:hover,.bridge-card:hover,.game-readout article:hover{transform:none}.game-body{padding:.75rem;display:flex;flex-direction:column;align-items:center}.mobile-game-note{display:block}.game-screen{width:min(780px,calc(100vw - 4rem));max-width:100%;aspect-ratio:1000/800}.game-frame{max-width:calc(100vw - 2rem)}}
-@media(max-width:520px){.bridge-card{min-height:160px}.game-readout article{min-height:auto}.about-snapshot span{font-size:.53rem}.hero-role-card{grid-template-columns:1fr}.hero-role-card .m-card-lbl{text-transform:none}}
-
-
-/* ── REQUESTED FIXES 2026-05-09 ─────────────────────── */
-#scroll-prog{display:none!important}
-.hero-role-stack{width:min(430px,100%)!important;display:grid!important;gap:.9rem!important}
-.hero-role-card{min-height:96px!important;grid-template-columns:92px 1fr!important;background:linear-gradient(145deg,#12100d,#090806)!important;border-color:rgba(216,169,59,.18)!important}
-.hero-role-card .m-card-num{font-size:3.35rem!important}
-.hero-role-card .m-card-lbl{font-size:.68rem!important;line-height:1.45!important;color:#b5aa99!important}
-#about{padding:5.25rem 3.5rem 2.6rem!important}
-.about-clean-grid{gap:3rem!important;align-items:center!important}
-.about-lens{border:1px solid var(--br);background:linear-gradient(145deg,#0d0a08,#070606);padding:1.1rem;position:relative;overflow:hidden}
-.about-lens::before{content:'';position:absolute;inset:0;background:var(--noise-url);opacity:.28;pointer-events:none}
-.about-lens-title{position:relative;z-index:1;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:.3rem .2rem .9rem;border-bottom:1px solid rgba(216,169,59,.13);margin-bottom:.35rem}
-.lens-row{position:relative;z-index:1;display:grid;grid-template-columns:44px 1fr;gap:.85rem;padding:1rem .25rem;border-bottom:1px solid rgba(216,169,59,.1);transition:background .22s,transform .22s,border-color .22s}
-.lens-row:last-child{border-bottom:0}
-.lens-row:hover{background:rgba(216,169,59,.055);transform:translateX(5px);border-color:rgba(216,169,59,.25)}
-.lens-row span{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:var(--gold-dim);line-height:1}
-.lens-row strong{display:block;color:var(--white);font-size:.95rem;margin-bottom:.24rem}
-.lens-row em{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:.58rem;letter-spacing:.08em;color:#8f8474}
-.bridge-section{padding:3rem 3.5rem 4.25rem!important}
-.bridge-card{min-height:172px!important}
-.timeline::before{background:rgba(216,169,59,.18)!important}
-.tl-progress{background:linear-gradient(180deg,var(--gold),var(--gold2))!important;width:2px!important;box-shadow:0 0 18px rgba(216,169,59,.42)!important}
-.tl-card:hover{transform:translateX(8px)!important;border-color:rgba(216,169,59,.42)!important}
-.game-desc{max-width:650px!important;color:#a99d8d!important}
-.game-readout article{min-height:118px!important}
-.mobile-game-note{line-height:1.55}
-@media(max-width:768px){
-  .hero-role-stack{display:none!important}
-  .about-clean-grid{gap:2rem!important}
-  .lens-row:hover{transform:none}
-  .game-screen{display:none!important}
-  .mobile-game-note{display:block!important;border:1px solid rgba(216,169,59,.22);background:#0d0a08;padding:1rem 1.2rem;margin:0 auto;max-width:460px;color:var(--gold2)!important}
-  .game-frame{width:100%!important;max-width:100%!important}
-  .game-topbar{justify-content:center}
+function show_infobox() {
+    infobox.style.display = "flex";
+    infobox.style.left = "0";
+    infobox.style.top = "0";
+    infobox.style.right = "0";
+    infobox.style.bottom = "0";
 }
 
+window.KNIGHTSCROLL_PLAY_REQUESTED = false;
+
+window.addEventListener("DOMContentLoaded", () => {
+    const infobox = document.getElementById("infobox");
+
+    if (infobox) {
+        infobox.addEventListener("click", () => {
+            window.KNIGHTSCROLL_PLAY_REQUESTED = true;
+        }, { once: true });
+    }
+});
+
+</script>
+
+    <title>knightscroll-main2</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="height=device-height, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+
+    <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+
+    <style>
+        #status {
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 20px;
+            margin-left: 30px;
+            font-weight: bold;
+            color: rgb(120, 120, 120);
+        }
+
+        #progress {
+            height: 20px;
+            width: 300px;
+        }
+
+        #infobox {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                radial-gradient(circle at 50% 45%, rgba(212,168,67,0.12), transparent 45%),
+                linear-gradient(135deg, #050507 0%, #0b0b12 50%, #050507 100%);
+
+            color: #c8c2b8;
+            font-family: 'Syne', sans-serif;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .game-launch-card {
+            width: min(460px, 88%);
+            padding: 2.2rem 1.6rem;
+            border: 1px solid rgba(212,168,67,0.15);
+            background: rgba(13,13,20,0.96);
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0,0,0,0.45);
+        }
+
+        .game-launch-kicker {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .65rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: #d4a843;
+            margin-bottom: .9rem;
+        }
+
+        .game-launch-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: .06em;
+            color: #f5f0e8;
+            line-height: 1;
+            margin-bottom: .9rem;
+        }
+
+        .game-launch-desc {
+            font-size: .9rem;
+            line-height: 1.7;
+            color: #555568;
+            margin-bottom: 1.4rem;
+        }
+
+        .game-launch-btn {
+            display: inline-block;
+            padding: .95rem 2.2rem;
+            border: 1px solid #d4a843;
+            background: #d4a843;
+            color: #060608;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            transition: transform .2s ease, opacity .2s ease;
+        }
+
+        #infobox:hover .game-launch-btn {
+            transform: translateY(-2px);
+            opacity: .95;
+        }
+
+        div.emscripten { text-align: center; }
+        div.emscripten_border { border: 1px solid black; }
+        div.thick_border { border: 4px solid black; }
+
+        /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+        canvas.emscripten {
+            border: 0 none;
+            background-color: #000;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+
+            padding: 0;
+            margin: 0 auto;
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        /* kills the iframe scrollbars / gray page look */
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Syne', arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #060608;
+        }
+
+        .topright{
+           position:absolute;
+           top:0px;
+           right:0px;
+        }
+
+        .bottomright {
+            position:absolute;
+            top: 40%;
+            right: 0px;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trinfo{
+           position: relative;
+           right: 0px;
+           border: 1px solid black;
+        }
+
+        .framed{
+           position: relative;
+           top: 150px;
+           right: 10px;
+           border: 1px solid black;
+        }
+    </style>
+
+    <script>
+/*
+        if (navigator.serviceWorker)
+            navigator.serviceWorker.register("https://pygame-web.github.io/cdn/0.9.3/pygbag0.9.3.js")
+        else
+            console.warn("Service workers not supported")
+*/
+    </script>
+
+    <script src="https://pygame-web.github.io/cdn/0.9.3//browserfs.min.js"></script>
 
-/* ── FINAL PATCH 2026-05-10 ─────────────────────────────
-   Fixes: hero card overlap, bridge title, section gaps,
-   Knightscroll spacing, descender clipping. */
-
-/* 1) Hero cards: stop PRODUCT/BUSINESS text from overlapping descriptions */
-@media(min-width:769px){
-  .hero-role-card{
-    min-height:120px!important;
-    grid-template-columns:1fr!important;
-    align-items:start!important;
-    gap:.45rem!important;
-  }
-
-  .hero-role-card .m-card-num{
-    font-size:3.35rem!important;
-    line-height:1.02!important;
-    white-space:nowrap!important;
-  }
-
-  .hero-role-card .m-card-lbl{
-    max-width:100%!important;
-    line-height:1.7!important;
-  }
-}
-
-/* 2) Bridge headline: make product/business/data one curly italic line */
-.bridge-head{
-  align-items:flex-end!important;
-}
-
-.bridge-head h2{
-  max-width:980px!important;
-  text-align:right!important;
-  line-height:.98!important;
-}
-
-.bridge-fancy-line{
-  display:block!important;
-  font-family:'Bebas Neue',sans-serif!important;
-  font-style:normal!important;
-  font-weight:400!important;
-  color:var(--gold)!important;
-  text-transform:none!important;
-  letter-spacing:0!important;
-  white-space:nowrap!important;
-  line-height:1.16!important;
-  padding-bottom:.1em!important;
-}
-
-/* 3) Knightscroll intro: stable desktop + mobile layout */
-#game{
-  overflow-x:hidden!important;
-}
-
-.game-intro{
-  width:min(100%,1180px)!important;
-  max-width:1180px!important;
-  margin:0 auto 1.75rem!important;
-  display:grid!important;
-  grid-template-columns:minmax(0,520px) minmax(0,620px)!important;
-  gap:2rem!important;
-  justify-content:center!important;
-  align-items:center!important;
-  overflow:visible!important;
-}
-
-.game-copy{
-  width:100%!important;
-  max-width:520px!important;
-  min-width:0!important;
-}
-
-.game-title-big{
-  max-width:100%!important;
-  font-size:clamp(3rem,4.6vw,4.5rem)!important;
-  line-height:1.02!important;
-  overflow:visible!important;
-}
-
-.game-title-big em{
-  display:block!important;
-  max-width:100%!important;
-  white-space:normal!important;
-  line-height:1.12!important;
-  padding-bottom:.12em!important;
-}
-
-.game-desc{
-  max-width:500px!important;
-}
-
-.game-readout{
-  width:100%!important;
-  max-width:620px!important;
-  min-width:0!important;
-  display:grid!important;
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:.85rem!important;
-}
-
-.game-readout article{
-  min-height:145px!important;
-  padding:1.15rem 1.25rem!important;
-  overflow:hidden!important;
-}
-
-.game-readout p{
-  font-size:.82rem!important;
-  line-height:1.65!important;
-}
-
-/* 4) Section spacing: remove the giant unused vertical gaps */
-#about{
-  padding-top:4.4rem!important;
-  padding-bottom:2.2rem!important;
-}
-
-.bridge-section{
-  padding-top:2.75rem!important;
-  padding-bottom:2.9rem!important;
-}
-
-#experience{
-  padding-top:4.5rem!important;
-  padding-bottom:3.25rem!important;
-}
-
-.exp-intro{
-  margin-bottom:2.25rem!important;
-}
-
-.tl-item{
-  margin-bottom:2rem!important;
-}
-
-.tl-item:last-child{
-  margin-bottom:0!important;
-}
-
-#logos{
-  padding-top:2rem!important;
-  padding-bottom:2rem!important;
-}
-
-#game{
-  padding-top:3.25rem!important;
-  padding-bottom:3.25rem!important;
-}
-
-#contact{
-  padding-top:3.1rem!important;
-  padding-bottom:3.1rem!important;
-}
-
-.bleed-down,
-.bleed-up,
-.bleed-surface-down{
-  height:18px!important;
-}
-
-/* 5) Descender clipping: stop g / y / p bottoms from being cut off */
-.hero-h1,
-.hero-h1 em,
-.sec-h2,
-.sec-h2 em,
-.game-title-big,
-.game-title-big em,
-.bridge-fancy-line{
-  overflow:visible!important;
-}
-
-.hero-h1 em,
-.sec-h2 em,
-.game-title-big em{
-  line-height:1.16!important;
-  padding-bottom:.1em!important;
-}
-
-.game-title-big{
-  line-height:1.04!important;
-}
-
-.about-body p,
-.bridge-card p,
-.game-desc,
-.game-readout p,
-.tl-bullets li,
-.contact-note,
-.m-card-lbl,
-.clink-val{
-  line-height:1.8!important;
-  padding-bottom:.04em!important;
-}
-
-.game-readout article,
-.bridge-card,
-.tl-card,
-.value-card,
-.clink{
-  overflow:visible!important;
-}
-
-.tl-bullets li{
-  align-items:flex-start!important;
-}
-
-/* Keep the game itself controlled by /game/index.html — no portfolio-level play button. */
-.game-iframe{
-  visibility:visible!important;
-}
-
-@media(max-width:1024px){
-  .bridge-head{
-    display:block!important;
-  }
-
-  .bridge-head h2{
-    text-align:left!important;
-    max-width:760px!important;
-    margin-top:.8rem!important;
-  }
-
-  .bridge-fancy-line{
-    white-space:normal!important;
-  }
-}
-
-@media(max-width:1100px){
-  .game-intro{
-    width:min(100%,760px)!important;
-    max-width:760px!important;
-    grid-template-columns:1fr!important;
-    gap:1.5rem!important;
-    justify-content:center!important;
-  }
-
-  .game-copy{
-    width:100%!important;
-    max-width:100%!important;
-  }
-
-  .game-title-big,
-  .game-title-big em{
-    max-width:100%!important;
-  }
-
-  .game-readout{
-    width:100%!important;
-    max-width:100%!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  }
-}
-
-@media(max-width:768px){
-  .game-readout{
-    grid-template-columns:1fr!important;
-    gap:.65rem!important;
-  }
-
-  .game-readout article{
-    min-height:auto!important;
-    padding:.9rem 1rem!important;
-  }
-
-  .game-readout span{
-    font-size:.56rem!important;
-    margin-bottom:.35rem!important;
-  }
-
-  .game-readout p{
-    font-size:.8rem!important;
-    line-height:1.55!important;
-  }
-}
-
-@media(max-width:640px){
-  #game{
-    padding-left:1rem!important;
-    padding-right:1rem!important;
-  }
-
-  .game-intro{
-    width:100%!important;
-    max-width:100%!important;
-    gap:1.25rem!important;
-  }
-
-  .game-title-big{
-    font-size:clamp(2.6rem,15vw,4rem)!important;
-    line-height:1!important;
-  }
-
-  .game-title-big em{
-    font-size:clamp(2.8rem,16vw,4.2rem)!important;
-    line-height:1.08!important;
-  }
-
-  .game-desc{
-    font-size:.9rem!important;
-    line-height:1.6!important;
-  }
-}
-
-@media(max-width:768px){
-  #about,
-  .bridge-section,
-  #experience,
-  #game,
-  #contact{
-    padding-top:3.25rem!important;
-    padding-bottom:3.25rem!important;
-  }
-
-  #logos{
-    padding:2rem 1.5rem!important;
-  }
-}
-
-
-
-/* ── FONT + GOLD HEADING PATCH ───────────────────────── */
-
-/* Main site font */
-body,
-.about-body p,
-.bridge-card p,
-.game-desc,
-.game-readout p,
-.game-proof p,
-.tl-bullets li,
-.contact-note,
-.clink-val,
-.m-card-lbl {
-  font-family:'JetBrains Mono',monospace!important;
-}
-
-/* All main headings stay Bebas */
-.hero-h1,
-.hero-h1 em,
-.sec-h2,
-.sec-h2 em,
-.game-title-big,
-.game-title-big em,
-.bridge-head h2,
-.bridge-fancy-line,
-.tl-role,
-.m-card-num,
-.bridge-code,
-.tl-metric-num,
-.loader-name,
-.nav-logo,
-.footer-logo {
-  font-family:'Bebas Neue',sans-serif!important;
-  font-style:normal!important;
-  font-feature-settings:normal!important;
-}
-
-/* Gold emphasis lines */
-.hero-h1 em,
-.sec-h2 em,
-.game-title-big em,
-.bridge-fancy-line {
-  color:var(--gold)!important;
-  display:block!important;
-  font-style:normal!important;
-  text-transform:none!important;
-  letter-spacing:.03em!important;
-  line-height:1.14!important;
-  padding-bottom:.14em!important;
-  overflow:visible!important;
-}
-
-/* Fix g / y / p descenders being cut off */
-.hero-h1,
-.sec-h2,
-.game-title-big,
-.bridge-head h2 {
-  line-height:1.06!important;
-  padding-bottom:.12em!important;
-  overflow:visible!important;
-}
-
-.hero-h1 em,
-.sec-h2 em,
-.game-title-big em,
-.bridge-fancy-line {
-  line-height:1.14!important;
-  padding-bottom:.18em!important;
-}
-
-.about-body p,
-.bridge-card p,
-.game-desc,
-.game-readout p,
-.game-proof p,
-.tl-bullets li,
-.contact-note,
-.clink-val,
-.m-card-lbl {
-  line-height:1.8!important;
-}
-
-/* Make sure parent boxes are not clipping descenders */
-.about-copy,
-.exp-intro,
-.game-copy,
-.bridge-head,
-.tl-card,
-.bridge-card,
-.game-readout article,
-.game-proof article,
-.clink {
-  overflow:visible!important;
-}
-
-/* ── CLEANER KNIGHTSCROLL SECTION ────────────────────── */
-
-.game-clean {
-  max-width:980px!important;
-  margin:0 auto!important;
-}
-
-.game-copy-clean {
-  max-width:720px!important;
-  margin:0 auto 1.5rem!important;
-  text-align:center!important;
-}
-
-.game-copy-clean .game-desc {
-  max-width:650px!important;
-  margin:0 auto!important;
-}
-
-.game-clean .game-frame {
-  margin:1.4rem auto 1rem!important;
-}
-
-.game-proof {
-  display:grid!important;
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:.75rem!important;
-  max-width:900px!important;
-  margin:1rem auto 0!important;
-}
-
-.game-proof article {
-  border:1px solid rgba(216,169,59,.14)!important;
-  background:rgba(13,10,8,.72)!important;
-  padding:.9rem 1rem!important;
-  min-height:auto!important;
-  overflow:visible!important;
-}
-
-.game-proof span {
-  display:block!important;
-  font-family:'JetBrains Mono',monospace!important;
-  font-size:.56rem!important;
-  letter-spacing:.14em!important;
-  text-transform:uppercase!important;
-  color:var(--gold)!important;
-  margin-bottom:.4rem!important;
-}
-
-.game-proof p {
-  font-family:'JetBrains Mono',monospace!important;
-  font-size:.76rem!important;
-  line-height:1.6!important;
-  color:#9a8f7e!important;
-}
-
-@media(max-width:768px) {
-  .game-proof {
-    grid-template-columns:1fr!important;
-  }
-
-  .game-copy-clean {
-    text-align:left!important;
-  }
-
-  .game-copy-clean .game-desc {
-    margin:0!important;
-  }
-}
-
-</style>
 </head>
+
 <body>
 
-<!-- loader -->
-<div id="loader">
-  <div class="loader-name">MUSAA ATIF</div>
-  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-</div>
-
-
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">M.A.</a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#game">Arcade</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-</nav>
-
-<!-- ───── HERO ───── -->
-<section id="hero">
-  <canvas id="particles"></canvas>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-tag-wrap">
-        <span class="hero-tag" id="heroTag">Product Analyst · Product / Business / Data</span>
-      </div>
-      <h1 class="hero-h1">Musaa<br/><em>Atif</em></h1>
-      <p class="hero-sub">Product-focused analyst who turns tickets, user data, stakeholder requests, and workflow issues into clearer priorities and better product decisions.</p>
-      <div class="hero-btns">
-        <a href="#experience" class="btn-g"><span>Explore My Work</span></a>
-        <a href="assets/Musaa-Atif-Product-Analyst-Resume.pdf" target="_blank" class="btn-outline">Download CV</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="metric-stack hero-role-stack">
-        <div class="m-card hero-role-card">
-          <div class="m-card-num">PRODUCT</div>
-          <div class="m-card-lbl">Scope, tradeoffs, requirements, measurable outcomes</div>
+    <div id="transfer" align=center>
+<!--        <div class="spinner" id='spinner'></div> -->
+        <div class="emscripten" id="status">Downloading...</div>
+        <div class="emscripten">
+            <progress value="0" max="100" id="progress"></progress>
         </div>
-        <div class="m-card hero-role-card">
-          <div class="m-card-num">BUSINESS</div>
-          <div class="m-card-lbl">Stakeholder needs, workflow gaps, cleaner processes</div>
-        </div>
-        <div class="m-card hero-role-card">
-          <div class="m-card-num">DATA</div>
-          <div class="m-card-lbl">Dashboards, ticket trends, adoption signals, KPIs</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-ind">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- ───── SKILL MARQUEE ───── -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item">Product Analytics</div>
-    <div class="marquee-item">ServiceNow</div>
-    <div class="marquee-item">Agile</div>
-    <div class="marquee-item">KPI Dashboards</div>
-    <div class="marquee-item">User Stories</div>
-    <div class="marquee-item">SQL &amp; C++ &amp; Python</div>
-    <div class="marquee-item">Jira · Roadmapping</div>
-    <div class="marquee-item">Venture Capital</div>
-    <div class="marquee-item">AWS Certified</div>
-    <div class="marquee-item">Stakeholder Mgmt</div>
-    <div class="marquee-item">CompTIA CySA+</div>
-    <div class="marquee-item">Business Analysis</div>
-    <div class="marquee-item">Product Analytics</div>
-    <div class="marquee-item">ServiceNow</div>
-    <div class="marquee-item">KPI Dashboards</div>
-    <div class="marquee-item">User Stories</div>
-    <div class="marquee-item">SQL &amp; C++ &amp; Python</div>
-    <div class="marquee-item">Jira · Roadmapping</div>
-    <div class="marquee-item">Venture Capital</div>
-    <div class="marquee-item">AWS Certified</div>
-    <div class="marquee-item">Stakeholder Mgmt</div>
-    <div class="marquee-item">CompTIA CySA+</div>
-    <div class="marquee-item">Business Analysis</div>
-  </div>
-</div>
-
-<!-- ───── ABOUT ───── -->
-<section id="about">
-  <div class="about-grid about-clean-grid">
-    <div class="about-copy reveal-left">
-      <div class="sec-label">About Me</div>
-      <h2 class="sec-h2">I bring structure<br/><em>to product work.</em></h2>
-      <div class="about-body about-tight">
-        <p>I’m a product analyst with a Business Economics background from UC Irvine.</p>
-        <p>I specialize in translating user data into actionable product insights, building dashboards, and working cross-functionally to improve user experience and product performance.</p>
-      </div>
     </div>
 
-    <div class="about-lens reveal-right" aria-label="What Musaa does">
-      <div class="about-lens-title">What I actually do</div>
-      <div class="lens-row">
-        <span>01</span>
-        <div><strong>Make the ask clear</strong><em>requirements · user stories · acceptance criteria</em></div>
-      </div>
-      <div class="lens-row">
-        <span>02</span>
-        <div><strong>Find what is slowing people down</strong><em>tickets · workflows · usage patterns</em></div>
-      </div>
-      <div class="lens-row">
-        <span>03</span>
-        <div><strong>Turn evidence into next steps</strong><em>dashboards · priorities · process changes</em></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="bridge" class="bridge-section">
-  <div class="bridge-inner reveal">
-    <div class="bridge-head">
-      <div class="sec-label">Focus Areas</div>
-      <h2>
-        Three ways I connect<br/>
-        <em class="bridge-fancy-line">product, business, and data.</em>
-      </h2>
-    </div>
-    <div class="bridge-cards" aria-label="Product management, business analysis, and data focus cards">
-      <article class="bridge-card">
-        <div class="bridge-code">PRODUCT</div>
-        <h3>Turn ambiguity into a plan</h3>
-        <p>Define scope, tradeoffs, requirements, and outcomes teams can actually build toward.</p>
-      </article>
-      <article class="bridge-card">
-        <div class="bridge-code">BUSINESS</div>
-        <h3>Make operations easier to run</h3>
-        <p>Map workflows, document gaps, and translate stakeholder needs into cleaner processes.</p>
-      </article>
-      <article class="bridge-card">
-        <div class="bridge-code">DATA</div>
-        <h3>Show what changed</h3>
-        <p>Use dashboards, ticket trends, and adoption signals to support better product decisions.</p>
-      </article>
-    </div>
-  </div>
-</section>
 
 
+    <canvas class="emscripten" id="canvas"
+width="1px"
+height="1px"
+    oncontextmenu="event.preventDefault()" tabindex=1>
+    </canvas>
 
-<!-- ───── EXPERIENCE ───── -->
-<section id="experience">
-  <div class="exp-intro">
-    <div class="sec-label reveal">Experience</div>
-    <h2 class="sec-h2 reveal">Where I've<br/><em>Made Impact.</em></h2>
-  </div>
+    <canvas class="emscripten" id="canvas3d"
+width="1280px"
+height="720px"
+    oncontextmenu="event.preventDefault()" tabindex=1 hidden>
+    </canvas>
 
-  <div class="timeline" id="timeline">
-    <div class="tl-progress" id="tlProgress"></div>
-
-    <!-- Sileria -->
-    <div class="tl-item reveal">
-      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-      <div class="tl-card">
-        <div class="tl-card-top">
-          <div class="tl-card-meta">
-            <div class="tl-co-row">
-              <span class="tl-co">Sileria, Inc.</span>
+    <div id="infobox">
+        <div class="game-launch-card">
+            <div class="game-launch-kicker">Loading</div>
+            <div class="game-launch-title">A Knight&rsquo;s Last Stand</div>
+            <div class="game-launch-desc">
+                Preparing the game...
             </div>
-            <div class="tl-role">Product Analyst</div>
-            <div class="tl-date">Apr 2025 – Present · Los Angeles, CA</div>
-          </div>
-          <div class="tl-metric">
-            <div class="tl-metric-num">100k+</div>
-            <div class="tl-metric-lbl">Users Reached</div>
-          </div>
         </div>
-        <ul class="tl-bullets">
-          <li>Analyzed 1,000+ user interactions, tickets and records to identify pain points — recommendations impacting 100k+ users</li>
-          <li>Built KPI dashboards in ServiceNow for activation, retention &amp; feature adoption, cutting manual reporting time by 40%</li>
-          <li>Gathered requirements and defined 15+ user stories and acceptance criteria with cross-functional stakeholders</li>
-        </ul>
-        <div class="tl-tags">
-          <span class="tl-tag">ServiceNow</span>
-          <span class="tl-tag">KPI Dashboards</span>
-          <span class="tl-tag">User Research</span>
-          <span class="tl-tag">Stakeholder Mgmt</span>
-        </div>
-      </div>
     </div>
 
-    <!-- LAHD -->
-    <div class="tl-item reveal">
-      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-      <div class="tl-card">
-        <div class="tl-card-top">
-          <div class="tl-card-meta">
-            <div class="tl-co-row">
-              <span class="tl-co">LA Housing Department</span>
+    <div id=html></div>
+
+    <div id=crt  class=bottomright >
+
+        <div id="system" hidden>
+            <div class="button-container">
+                <button id="aiostop" disabled>AIO ⏏︎</button>
+                <button id="aiopaused_true" disabled>AIO ■</button>
+                <button id="aiopaused_false" disabled>AIO ▶</button>
+                <button id="pygame_mixer_music_pause" disabled>Music ■</button>
             </div>
-            <div class="tl-role">Systems Software Support Intern</div>
-            <div class="tl-date">Aug 2023 – Jan 2025 · Los Angeles, CA</div>
-          </div>
-          <div class="tl-metric">
-            <div class="tl-metric-num">16%</div>
-            <div class="tl-metric-lbl">Reduction in Manual Intervention</div>
-          </div>
-        </div>
-        <ul class="tl-bullets">
-          <li>Owned prioritization of 200+ Jira tickets; introduced a weighted-scoring system balancing stakeholder needs and technical constraints</li>
-          <li>Built a 12-week Gantt roadmap across 8 project phases for an 8-person team — enabled on-time delivery of a 6-month intranet redesign</li>
-          <li>Optimized ServiceNow intake workflow with SLA alerts and routing logic, reducing manual intervention by 16%</li>
-          <li>Led SSO redesign for 500+ employees, debugging auth issues and cutting sign-in time by 30%</li>
-        </ul>
-        <div class="tl-tags">
-          <span class="tl-tag">Jira</span>
-          <span class="tl-tag">ServiceNow</span>
-          <span class="tl-tag">Roadmapping</span>
-          <span class="tl-tag">SSO / Auth</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Fika Ventures -->
-    <div class="tl-item reveal">
-      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-      <div class="tl-card">
-        <div class="tl-card-top">
-          <div class="tl-card-meta">
-            <div class="tl-co-row">
-              <span class="tl-co">Fika Ventures</span>
+            <div class="button-container">
+                <div id=load_min>min</div>
+                <div id=load_avg>avg</div>
+                <div id=load_max>max</div>
+              <button id="load_rst" disabled>RESET</button>
             </div>
-            <div class="tl-role">Product &amp; Investment Intern</div>
-            <div class="tl-date">Sep 2022 – Nov 2022 · Los Angeles, CA</div>
-          </div>
-          <div class="tl-metric">
-            <div class="tl-metric-num">$60M+</div>
-            <div class="tl-metric-lbl">Funding Influenced</div>
-          </div>
+
+            <div id="level">(battery level unknown)</div>
+            <div id="stateBattery">(charging state unknown)</div>
+
         </div>
-        <ul class="tl-bullets">
-          <li>Evaluated 30+ startups using structured analysis of product strategy, user needs, monetization and growth signals</li>
-          <li>Identified Payabli — assessed PMF, pain points and workflow integration; the company raised $60M+ in funding</li>
-          <li>Defended investment materials under rapid turnaround directly to senior stakeholders, influencing deal prioritization</li>
-        </ul>
-        <div class="tl-tags">
-          <span class="tl-tag">Venture Capital</span>
-          <span class="tl-tag">Startup Analysis</span>
-          <span class="tl-tag">Pitchbook</span>
-          <span class="tl-tag">Product-thinking</span>
+
+        <div id=box class="emscripten_border" hidden=true>
+
+            <div id="info" class="trinfo"></div>
+
+            <iframe id="iframe" class="framed" name="iframe"
+width="470px" height="90%"
+allowtransparency="true"
+style="z-index: 10;"
+style="background: #FFFFFF;"
+frameborder="1"
+                allowfullscreen="true"
+                webkitallowfullscreen="true"
+                msallowfullscreen="true"
+                mozallowfullscreen="true"
+                sandbox="allow-same-origin allow-top-navigation allow-scripts allow-pointer-lock"
+                allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated"
+                src="https://pygame-web.github.io/cdn/0.9.3/empty.html"
+                scrolling="yes">
+            </iframe>
         </div>
-      </div>
+
     </div>
 
-  </div><!-- /timeline -->
-</section>
 
-
-<!-- ───── LOGO WALL ───── -->
-<div id="logos" class="reveal">
-  <div class="logos-label">Companies &amp; Institutions</div>
-  <div class="logos-row">
-    <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
-    <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
-    <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
-    <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
-    <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
-  </div>
-</div>
-
-<div class="bleed-down"></div>
-
-<!-- ───── GAME ───── -->
-<section id="game">
-  <div class="game-clean reveal">
-    <div class="game-copy game-copy-clean">
-      <div class="game-tag">Playable Side Project</div>
-      <h2 class="game-title-big">Knightscroll<br/><em>a product exercise.</em></h2>
-      <p class="game-desc">A browser-playable Python project focused on clear goals, quick feedback, and no-setup interaction.</p>
+    <div id="dlg" hidden>
+        <input type="file" id="dlg_multifile" multiple accept="image/*">
+        <label for="dlg_multifile">Select files</label>
     </div>
 
-    <div class="game-frame">
-      <div class="game-topbar">
-        <div class="dots"><i></i><i></i><i></i></div>
-        <div class="topbar-title">knightscroll / main.py</div>
-      </div>
-
-      <div class="game-body">
-        <p class="mobile-game-note">Knightscroll is designed for desktop. Open this page on a laptop or monitor to play the embedded version.</p>
-        <div class="game-screen" id="gameScreen">
-          <iframe
-            class="game-iframe"
-            id="gameIframe"
-            src="./game/"
-            title="A Knight's Last Stand"
-            scrolling="no"
-            loading="lazy"
-            allow="fullscreen"
-          ></iframe>
-        </div>
-      </div>
+    <div id="pyconsole">
+        <div id="terminal" tabIndex=1 align="left"></div>
     </div>
 
-    <div class="game-proof" aria-label="Knightscroll project summary">
-      <article>
-        <span>Built With</span>
-        <p>Python · WASM · browser embed</p>
-      </article>
-      <article>
-        <span>Product Lens</span>
-        <p>Simple onboarding, visible progress, fast feedback.</p>
-      </article>
-      <article>
-        <span>Constraint</span>
-        <p>Runs inside the portfolio with no download or install.</p>
-      </article>
-    </div>
-  </div>
-</section>
+    <script type="application/javascript">
 
-<div class="bleed-surface-down"></div>
-
-<!-- ───── CONTACT ───── -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="reveal contact-copy">
-      <div class="sec-label">Contact</div>
-      <h2 class="sec-h2">Let’s talk.</h2>
-      <p class="contact-note">For product, analyst, or business-facing roles, email is the fastest way to reach me. My resume is linked below.</p>
-    </div>
-    <div class="contact-links reveal">
-      <a href="mailto:musaaibnatif@gmail.com" class="clink">
-        <div class="clink-inner">
-          <span class="clink-icon" aria-hidden="true">✉</span>
-          <span><span class="clink-lbl">Email</span><span class="clink-val">musaaibnatif@gmail.com</span></span>
-          <span class="clink-arr">→</span>
-        </div>
-      </a>
-      <a href="https://www.linkedin.com/in/musaaibnatif/" target="_blank" rel="noopener" class="clink">
-        <div class="clink-inner">
-          <span class="clink-icon" aria-hidden="true">in</span>
-          <span><span class="clink-lbl">LinkedIn</span><span class="clink-val">Connect with me</span></span>
-          <span class="clink-arr">→</span>
-        </div>
-      </a>
-      <a href="assets/Musaa-Atif-Product-Analyst-Resume.pdf" target="_blank" class="clink">
-        <div class="clink-inner">
-          <span class="clink-icon" aria-hidden="true">↓</span>
-          <span><span class="clink-lbl">Resume</span><span class="clink-val">Download PDF</span></span>
-          <span class="clink-arr">→</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-logo">Musaa Atif</div>
-  <div class="footer-copy">© 2026 · Los Angeles, CA · US Citizen</div>
-</footer>
-
-<script>
-// ── LOADER ──────────────────────────────────────────────
-setTimeout(()=>document.getElementById('loader').classList.add('done'),1900);
-
-
-// ── NAV SCROLL ───────────────────────────────────────────
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',scrollY>60);
-},{ passive:true });
-document.getElementById('hamburger').addEventListener('click',()=>{
-  document.getElementById('navLinks').classList.toggle('open');
-});
-document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{
-  document.getElementById('navLinks').classList.remove('open');
-}));
-
-// ── PARTICLES ───────────────────────────────────────────
-const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
-let W,H,pts=[],mouse={x:-999,y:-999};
-let parallaxY=0;
-function setSize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
-setSize();window.addEventListener('resize',setSize,{passive:true});
-document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
-window.addEventListener('scroll',()=>{parallaxY=scrollY*.28},{passive:true});
-class Pt{
-  constructor(){this.rand()}
-  rand(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.32;this.vy=(Math.random()-.5)*.32;this.r=Math.random()*1.2+.35;this.a=Math.random()*.4+.08;this.life=0;this.ml=Math.random()*260+180}
-  step(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.ml||this.x<0||this.x>W||this.y<0||this.y>H)this.rand();const dx=this.x-mouse.x,dy=this.y-mouse.y,d=Math.hypot(dx,dy);if(d<120){const f=(120-d)/120*2;this.x+=dx/d*f;this.y+=dy/d*f;}}
-  draw(){const f=Math.min(this.life/40,(this.ml-this.life)/40,1);ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,6.28);ctx.fillStyle=`rgba(212,168,67,${this.a*f})`;ctx.fill();}
-}
-for(let i=0;i<100;i++)pts.push(new Pt());
-let heroVisible=true;
-const heroObs=new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting},{threshold:.01});
-heroObs.observe(document.getElementById('hero'));
-function frame(){
-  ctx.clearRect(0,0,W,H);
-  ctx.save();ctx.translate(0,-parallaxY*.1);
-  for(let i=0;i<pts.length;i++){
-    for(let j=i+1;j<pts.length;j++){
-      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);
-      if(d<90){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(212,168,67,${(1-d/90)*.08})`;ctx.lineWidth=.4;ctx.stroke();}
+    globalThis.__canvas_resized = (self, ecw, ech) => {
+        console.warn("TODO: panda3d canvas monitor", self, ecw, ech)
     }
-  }
-  pts.forEach(p=>{p.step();p.draw();});
-  ctx.restore();
-  requestAnimationFrame(frame);
-}
-frame();
 
-// ── SCROLL REVEAL ────────────────────────────────────────
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('in');
-      e.target.querySelectorAll('[data-count]').forEach(el=>countUp(el));
-      if(e.target.id==='bentoHero')e.target.classList.add('in');
+    async function custom_onload(debug_hidden) {
+        // this is called before anything python is loaded
+        // make your js customization here
+        console.log(__FILE__, "custom_onload")
+
+        pyconsole.hidden = debug_hidden
+        system.hidden = debug_hidden
+        transfer.hidden = debug_hidden
+        info.hidden = debug_hidden
+        box.hidden =  debug_hidden
+
+        show_infobox()
     }
-  });
-},{threshold:.1});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>obs.observe(el));
 
-// stagger creds
-const credsObs=new IntersectionObserver(entries=>{
-  if(entries[0].isIntersecting){
-    document.querySelectorAll('.cred-item').forEach((el,i)=>{
-      setTimeout(()=>el.classList.add('in'),i*90);
-    });
-  }
-},{threshold:.15});
-const cc=document.getElementById('credsContainer');
-if(cc)credsObs.observe(cc);
+    function custom_prerun(){
+        // no python main and no (MEMFS + VFS) yet.
+        console.log(__FILE__, "custom_prerun")
 
-// ── COUNT UP ─────────────────────────────────────────────
-function countUp(el){
-  if(el._counted)return;el._counted=true;
-  const to=+el.dataset.count,suf=el.dataset.suffix||'';
-  const dur=1500,t0=performance.now();
-  (function tick(now){
-    const p=Math.min((now-t0)/dur,1),ease=1-Math.pow(1-p,3);
-    el.textContent=Math.round(ease*to)+suf;
-    if(p<1)requestAnimationFrame(tick);
-  })(t0);
-}
+    }
 
-// ── TIMELINE DRAW PROGRESS ───────────────────────────────
-const tl=document.getElementById('timeline');
-const tlProg=document.getElementById('tlProgress');
-if(tl&&tlProg){
-  window.addEventListener('scroll',()=>{
-    const r=tl.getBoundingClientRect();
-    const visible=Math.min(1,Math.max(0,(window.innerHeight-r.top)/(r.height+window.innerHeight)));
-    tlProg.style.height=(visible*100)+'%';
-  },{passive:true});
-}
+    function custom_postrun(){
+        // python main and no VFS filesystem yet.
+        console.log(__FILE__, "custom_postrun")
 
-// ── MAGNETIC BUTTONS ─────────────────────────────────────
-document.querySelectorAll('.btn-g,.btn-outline').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    const dx=(e.clientX-r.left-r.width/2)*.2;
-    const dy=(e.clientY-r.top-r.height/2)*.2;
-    btn.style.transform=`translate(${dx}px,${dy}px)`;
-  });
-  btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
-});
+    }
 
-// ── TYPEWRITER ───────────────────────────────────────────
-const tags=['Product Analyst · Product / Business / Data','Requirements → priorities → decisions','Tickets → patterns → product changes','Jira · ServiceNow · SQL · Python · Excel'];
-let ti=0,ci=0,del=false;
-const tagEl=document.getElementById('heroTag');
-function type(){
-  const t=tags[ti];
-  if(!del){tagEl.textContent=t.slice(0,ci+1);ci++;
-    if(ci===t.length){del=true;setTimeout(type,2000);return;}}
-  else{tagEl.textContent=t.slice(0,ci-1);ci--;
-    if(ci===0){del=false;ti=(ti+1)%tags.length;}}
-  setTimeout(type,del?40:75);
-}
-setTimeout(type,2500);
-</script>
+    function debug() {
+        // allow to gain access to dev tools from js console
+        // but only on desktop. difficult to reach when in iframe
+        python.config.debug = true
+        custom_onload(false)
+        Module.PyRun_SimpleString("shell.uptime()")
+        window_resize()
+    }
+
+    function info_inline(data){
+        document.getElementById("info").innerHTML = data
+    }
+
+    function info_online(url) {
+        // display info about current APK
+        fetch( url /*, options */)
+            .then((response) => response.text())
+            .then((html) => {
+                info_inline(html);
+        })
+        .catch((error) => {
+            console.warn(error);
+        });
+    }
+
+    function frame_online(url) {
+        window.frames["iframe"].location = url;
+    }
+
+    </script>
+
 </body>
 </html>
