@@ -944,142 +944,148 @@ body,
 }
 
 
-/* ── FINAL LOGO CAROUSEL FIX 2026-05-10 ─────────────────────
-   Removes the header/gap and uses exactly two matching groups.
-   The track moves by -50%, so the second group starts immediately
-   when the first group exits. No empty seats after Nirman. */
-#logos{
-  padding:.9rem 0!important;
-  margin:0!important;
-  overflow:hidden!important;
-  background:var(--surface)!important;
-  border-top:1px solid var(--br)!important;
-  border-bottom:1px solid var(--br)!important;
-  position:relative!important;
+/* ── TRUE SEAMLESS LOGO CAROUSEL FIX ─────────────────── */
+
+#logos {
+  --logo-cell-w: 220px;
+  --logo-speed: 42s;
+
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 92px !important;
+
+  overflow: hidden !important;
+  background: var(--surface) !important;
+  border-top: 1px solid var(--br) !important;
+  border-bottom: 1px solid var(--br) !important;
+
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
 }
 
-#logos::before,
-#logos::after{
-  content:''!important;
-  position:absolute!important;
-  top:0!important;
-  bottom:0!important;
-  width:min(120px,16vw)!important;
-  z-index:2!important;
-  pointer-events:none!important;
+#logos .logos-label {
+  display: none !important;
 }
 
-#logos::before{
-  left:0!important;
-  background:linear-gradient(to right,var(--surface),rgba(11,9,7,0))!important;
+#logos .logos-mask {
+  width: 100% !important;
+  overflow: hidden !important;
 }
 
-#logos::after{
-  right:0!important;
-  background:linear-gradient(to left,var(--surface),rgba(11,9,7,0))!important;
+#logos .logos-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
+  max-width: none !important;
+  gap: 0 !important;
+  margin: 0 !important;
+
+  animation: trueLogoMarquee var(--logo-speed) linear infinite !important;
+  will-change: transform !important;
 }
 
-.logos-label{
-  display:none!important;
-  margin:0!important;
+#logos .logos-set {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: auto !important;
+  gap: 0 !important;
 }
 
-.logos-row{
-  max-width:none!important;
+#logos .logo-cell {
+  flex: 0 0 var(--logo-cell-w) !important;
+  width: var(--logo-cell-w) !important;
+  min-width: var(--logo-cell-w) !important;
+  max-width: none !important;
+
+  height: 92px !important;
+  min-height: 92px !important;
+  padding: 0 1.8rem !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-right: 1px solid var(--br) !important;
+  border-bottom: 0 !important;
+
+  position: relative !important;
 }
 
-.logos-carousel-track{
-  display:flex!important;
-  flex-wrap:nowrap!important;
-  align-items:center!important;
-  justify-content:flex-start!important;
-  gap:0!important;
-  width:max-content!important;
-  max-width:none!important;
-  margin:0!important;
-  animation:logoCarouselFinal 34s linear infinite!important;
-  will-change:transform!important;
+#logos .logo-cell:last-child {
+  border-right: 1px solid var(--br) !important;
 }
 
-#logos:hover .logos-carousel-track{
-  animation-play-state:paused!important;
+#logos .logo-cell::after {
+  display: none !important;
 }
 
-.logos-group{
-  display:flex!important;
-  flex-wrap:nowrap!important;
-  align-items:center!important;
-  flex:0 0 auto!important;
-  width:max-content!important;
-  gap:0!important;
+#logos .logo-cell img {
+  display: block !important;
+  height: 28px !important;
+  width: auto !important;
+  max-width: 135px !important;
+  object-fit: contain !important;
+
+  filter: grayscale(1) brightness(1.6) contrast(0.82) opacity(0.48) !important;
+  transition: filter .35s ease, transform .35s ease !important;
 }
 
-.logo-cell{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  flex:0 0 220px!important;
-  width:220px!important;
-  min-width:220px!important;
-  max-width:none!important;
-  min-height:70px!important;
-  padding:.9rem 1.8rem!important;
-  border-right:1px solid var(--br)!important;
-  border-bottom:0!important;
+#logos .logo-cell:hover img {
+  filter: grayscale(0) brightness(1) contrast(1) opacity(1) !important;
+  transform: translateY(-3px) scale(1.04) !important;
 }
 
-.logo-cell img{
-  height:28px!important;
-  width:auto!important;
-  max-width:135px!important;
-  object-fit:contain!important;
-}
+@keyframes trueLogoMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
 
-@keyframes logoCarouselFinal{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .logos-carousel-track{
-    animation:none!important;
-    transform:none!important;
+  to {
+    transform: translate3d(var(--logo-shift, -1100px), 0, 0);
   }
 }
 
-@media(max-width:768px){
-  #logos{
-    padding:.85rem 0!important;
+@media (max-width: 768px) {
+  #logos {
+    --logo-cell-w: 155px;
+    height: 82px !important;
   }
 
-  .logos-carousel-track,
-  .logos-group{
-    flex-direction:row!important;
-    align-items:center!important;
+  #logos .logo-cell {
+    flex: 0 0 var(--logo-cell-w) !important;
+    width: var(--logo-cell-w) !important;
+    min-width: var(--logo-cell-w) !important;
+    max-width: none !important;
+
+    height: 82px !important;
+    min-height: 82px !important;
+    padding: 0 1.05rem !important;
+
+    border-right: 1px solid var(--br) !important;
+    border-bottom: 0 !important;
   }
 
-  .logo-cell{
-    flex:0 0 155px!important;
-    width:155px!important;
-    min-width:155px!important;
-    max-width:none!important;
-    min-height:64px!important;
-    padding:.8rem 1.1rem!important;
-    border-right:1px solid var(--br)!important;
-    border-bottom:0!important;
-  }
-
-  .logo-cell img{
-    height:24px!important;
-    max-width:110px!important;
+  #logos .logo-cell img {
+    height: 24px !important;
+    max-width: 110px !important;
   }
 }
 
-@media(max-width:480px){
-  .logo-cell{
-    flex-basis:150px!important;
-    width:150px!important;
-    min-width:150px!important;
+@media (max-width: 480px) {
+  #logos .logos-track,
+  #logos .logos-set {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  #logos .logo-cell {
+    flex: 0 0 var(--logo-cell-w) !important;
+    width: var(--logo-cell-w) !important;
+    min-width: var(--logo-cell-w) !important;
+    max-width: none !important;
   }
 }
 
@@ -1343,22 +1349,16 @@ body,
 
 
 <!-- ───── LOGO CAROUSEL ───── -->
-<div id="logos" class="reveal" aria-label="Companies and institutions carousel">
-  <div class="logos-carousel-track">
-    <div class="logos-group">
-      <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
-      <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
-      <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
-      <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
-      <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
-    </div>
-
-    <div class="logos-group" aria-hidden="true">
-      <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
-      <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
-      <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
-      <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
-      <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
+<div id="logos" class="reveal" aria-label="Companies and institutions">
+  <div class="logos-mask">
+    <div class="logos-track" id="logosTrack">
+      <div class="logos-set" id="logosSet">
+        <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
+        <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
+        <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
+        <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
+        <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1583,6 +1583,41 @@ if(gameScreen&&loadGameBtn&&gameIframe){
     gameScreen.classList.add('game-loaded');
   });
 }
+
+
+// ── TRUE SEAMLESS LOGO MARQUEE ─────────────────────────
+function setupLogoMarquee() {
+  const track = document.getElementById('logosTrack');
+  const originalSet = document.getElementById('logosSet');
+
+  if (!track || !originalSet) return;
+
+  track.querySelectorAll('.logos-set.clone').forEach(clone => clone.remove());
+
+  const setWidth = originalSet.getBoundingClientRect().width;
+
+  if (!setWidth) return;
+
+  track.style.setProperty('--logo-shift', `-${setWidth}px`);
+
+  const neededSets = Math.ceil((window.innerWidth + setWidth) / setWidth) + 3;
+
+  for (let i = 1; i < neededSets; i++) {
+    const clone = originalSet.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.classList.add('clone');
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  }
+}
+
+window.addEventListener('load', setupLogoMarquee);
+
+let logoResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(logoResizeTimer);
+  logoResizeTimer = setTimeout(setupLogoMarquee, 150);
+});
 
 // ── TYPEWRITER ───────────────────────────────────────────
 const tags=['Product Analyst · Product / Business / Data','Requirements → priorities → decisions','Tickets → patterns → product changes','Jira · ServiceNow · SQL · Python · Excel'];
