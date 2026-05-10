@@ -947,7 +947,8 @@ body,
 /* ── TRUE SEAMLESS LOGO CAROUSEL FIX ─────────────────── */
 
 #logos {
-  --logo-cell-w: 220px;
+  --logo-cell-w: 380px;
+  height: 115px !important;
   --logo-speed: 42s;
 
   padding: 0 !important;
@@ -986,6 +987,8 @@ body,
 }
 
 #logos .logos-set {
+  gap: 10px !important;
+  padding-right: 10px !important;
   display: flex !important;
   flex-wrap: nowrap !important;
   flex: 0 0 auto !important;
@@ -1000,15 +1003,15 @@ body,
   min-width: var(--logo-cell-w) !important;
   max-width: none !important;
 
-  height: 92px !important;
-  min-height: 92px !important;
-  padding: 0 1.8rem !important;
+  height: 115px !important;
+  min-height: 115px !important;
+  padding: 0 20px !important;
 
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 
-  border-right: 1px solid var(--br) !important;
+  border-right: none !important;
   border-bottom: 0 !important;
 
   position: relative !important;
@@ -1024,9 +1027,10 @@ body,
 
 #logos .logo-cell img {
   display: block !important;
-  height: 28px !important;
+  height: auto !important;
   width: auto !important;
-  max-width: 135px !important;
+  max-width: 330px !important;
+  max-height: 75px !important;
   object-fit: contain !important;
 
   filter: grayscale(1) brightness(1.6) contrast(0.82) opacity(0.4) !important;
@@ -1050,8 +1054,8 @@ body,
 
 @media (max-width: 768px) {
   #logos {
-    --logo-cell-w: 155px;
-    height: 82px !important;
+    --logo-cell-w: 280px;
+    height: 95px !important;
   }
 
   #logos .logo-cell {
@@ -1060,17 +1064,18 @@ body,
     min-width: var(--logo-cell-w) !important;
     max-width: none !important;
 
-    height: 82px !important;
-    min-height: 82px !important;
-    padding: 0 1.05rem !important;
+    height: 95px !important;
+    min-height: 95px !important;
+    padding: 0 14px !important;
 
     border-right: 1px solid var(--br) !important;
     border-bottom: 0 !important;
   }
 
   #logos .logo-cell img {
-    height: 65px !important;
-    max-width: 320px !important;
+    max-width: 240px !important;
+    height: 40px !important;
+    
   }
 }
 
