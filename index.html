@@ -6,7 +6,7 @@
 <title>Musaa Atif - Product Management | Analytics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -26,7 +26,7 @@
   --noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:auto}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:hidden;cursor:auto}
 
 
 /* ── LOADER ──────────────────────────────────────────── */
@@ -62,7 +62,7 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulseDot 2.4s ease-in-out infinite}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,11rem);line-height:.88;color:var(--white);margin-bottom:1.4rem;opacity:0;animation:up .8s ease .35s forwards}
-.hero-h1 em{color:var(--gold);display:block;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(3.2rem,8vw,7.5rem);line-height:1.05;font-feature-settings:'salt' on,'ss01' on}
+.hero-h1 em{color:var(--gold);display:block;font-family:'Bebas Neue',sans-serif;font-style:normal;font-size:clamp(3.2rem,8vw,7.5rem);line-height:1.05;font-feature-settings:normal}
 .hero-sub{max-width:420px;font-size:.97rem;color:var(--muted);line-height:1.8;margin-bottom:2.4rem;opacity:0;animation:up .8s ease .5s forwards}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:up .8s ease .65s forwards}
 .btn-g{padding:.82rem 2.1rem;background:var(--gold);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:400;transition:all .25s;position:relative;overflow:hidden;display:inline-block}
@@ -120,7 +120,7 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 .sec-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;display:flex;align-items:center;gap:10px}
 .sec-label .num{font-size:.58rem;opacity:.5}
 .sec-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,6vw,5.2rem);line-height:.93;color:var(--white);margin-bottom:2.1rem}
-.sec-h2 em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--gold);display:block;font-feature-settings:'salt' on}
+.sec-h2 em{font-family:'Bebas Neue',sans-serif;font-style:normal;color:var(--gold);display:block;font-feature-settings:normal}
 .about-body p{font-size:.96rem;line-height:1.88;color:var(--text);margin-bottom:1.1rem}
 .about-body strong{color:var(--white);font-weight:600}
 .creds{margin-top:2.2rem;display:flex;flex-direction:column;gap:.55rem}
@@ -185,7 +185,7 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 .game-intro{max-width:1200px;margin:0 auto 2.4rem;display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:end}
 .game-copy{max-width:620px}.game-tag{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
 .game-title-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,4.5rem);line-height:.95;color:var(--white);letter-spacing:.04em;margin-bottom:1rem}
-.game-title-big em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--gold);display:block;font-feature-settings:'salt' on}
+.game-title-big em{font-family:'Bebas Neue',sans-serif;font-style:normal;color:var(--gold);display:block;font-feature-settings:normal}
 .game-desc{font-size:.9rem;color:var(--muted);line-height:1.75;font-family:'JetBrains Mono',monospace;max-width:620px}
 .game-bullets{list-style:none;display:grid;gap:.55rem}
 .game-bullets li{font-size:.78rem;color:var(--text);padding:.72rem .85rem;border:1px solid rgba(216,169,59,.12);background:var(--surface);display:flex;gap:.6rem;line-height:1.55}
@@ -325,7 +325,7 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 .tl-card:hover .tl-metric-num{color:var(--gold2)}
 
 .game-case{align-items:stretch}
-.game-desc{font-family:'Syne',sans-serif;font-size:.94rem;color:#9a8f7e;line-height:1.75}
+.game-desc{font-family:'JetBrains Mono',monospace;font-size:.94rem;color:#9a8f7e;line-height:1.75}
 .game-readout{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 .game-readout article{border:1px solid rgba(216,169,59,.12);background:var(--surface);padding:1rem;min-height:128px;transition:transform .22s,border-color .22s,background .22s;position:relative;overflow:hidden;cursor:default}
 .game-readout article::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold-dim);transition:background .22s,width .22s}
@@ -421,8 +421,8 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 
 .bridge-fancy-line{
   display:block!important;
-  font-family:'Instrument Serif',serif!important;
-  font-style:italic!important;
+  font-family:'Bebas Neue',sans-serif!important;
+  font-style:normal!important;
   font-weight:400!important;
   color:var(--gold)!important;
   text-transform:none!important;
@@ -701,6 +701,172 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   }
 }
 
+
+
+/* ── FONT + GOLD HEADING PATCH ───────────────────────── */
+
+/* Main site font */
+body,
+.about-body p,
+.bridge-card p,
+.game-desc,
+.game-readout p,
+.game-proof p,
+.tl-bullets li,
+.contact-note,
+.clink-val,
+.m-card-lbl {
+  font-family:'JetBrains Mono',monospace!important;
+}
+
+/* All main headings stay Bebas */
+.hero-h1,
+.hero-h1 em,
+.sec-h2,
+.sec-h2 em,
+.game-title-big,
+.game-title-big em,
+.bridge-head h2,
+.bridge-fancy-line,
+.tl-role,
+.m-card-num,
+.bridge-code,
+.tl-metric-num,
+.loader-name,
+.nav-logo,
+.footer-logo {
+  font-family:'Bebas Neue',sans-serif!important;
+  font-style:normal!important;
+  font-feature-settings:normal!important;
+}
+
+/* Gold emphasis lines */
+.hero-h1 em,
+.sec-h2 em,
+.game-title-big em,
+.bridge-fancy-line {
+  color:var(--gold)!important;
+  display:block!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:.03em!important;
+  line-height:1.14!important;
+  padding-bottom:.14em!important;
+  overflow:visible!important;
+}
+
+/* Fix g / y / p descenders being cut off */
+.hero-h1,
+.sec-h2,
+.game-title-big,
+.bridge-head h2 {
+  line-height:1.06!important;
+  padding-bottom:.12em!important;
+  overflow:visible!important;
+}
+
+.hero-h1 em,
+.sec-h2 em,
+.game-title-big em,
+.bridge-fancy-line {
+  line-height:1.14!important;
+  padding-bottom:.18em!important;
+}
+
+.about-body p,
+.bridge-card p,
+.game-desc,
+.game-readout p,
+.game-proof p,
+.tl-bullets li,
+.contact-note,
+.clink-val,
+.m-card-lbl {
+  line-height:1.8!important;
+}
+
+/* Make sure parent boxes are not clipping descenders */
+.about-copy,
+.exp-intro,
+.game-copy,
+.bridge-head,
+.tl-card,
+.bridge-card,
+.game-readout article,
+.game-proof article,
+.clink {
+  overflow:visible!important;
+}
+
+/* ── CLEANER KNIGHTSCROLL SECTION ────────────────────── */
+
+.game-clean {
+  max-width:980px!important;
+  margin:0 auto!important;
+}
+
+.game-copy-clean {
+  max-width:720px!important;
+  margin:0 auto 1.5rem!important;
+  text-align:center!important;
+}
+
+.game-copy-clean .game-desc {
+  max-width:650px!important;
+  margin:0 auto!important;
+}
+
+.game-clean .game-frame {
+  margin:1.4rem auto 1rem!important;
+}
+
+.game-proof {
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:.75rem!important;
+  max-width:900px!important;
+  margin:1rem auto 0!important;
+}
+
+.game-proof article {
+  border:1px solid rgba(216,169,59,.14)!important;
+  background:rgba(13,10,8,.72)!important;
+  padding:.9rem 1rem!important;
+  min-height:auto!important;
+  overflow:visible!important;
+}
+
+.game-proof span {
+  display:block!important;
+  font-family:'JetBrains Mono',monospace!important;
+  font-size:.56rem!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  color:var(--gold)!important;
+  margin-bottom:.4rem!important;
+}
+
+.game-proof p {
+  font-family:'JetBrains Mono',monospace!important;
+  font-size:.76rem!important;
+  line-height:1.6!important;
+  color:#9a8f7e!important;
+}
+
+@media(max-width:768px) {
+  .game-proof {
+    grid-template-columns:1fr!important;
+  }
+
+  .game-copy-clean {
+    text-align:left!important;
+  }
+
+  .game-copy-clean .game-desc {
+    margin:0!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -796,7 +962,7 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   <div class="about-grid about-clean-grid">
     <div class="about-copy reveal-left">
       <div class="sec-label">About Me</div>
-      <h2 class="sec-h2">I bring structure to messy product work.<br/></h2>
+      <h2 class="sec-h2">I bring structure<br/><em>to product work.</em></h2>
       <div class="about-body about-tight">
         <p>I’m a product analyst with a Business Economics background from UC Irvine.</p>
         <p>I specialize in translating user data into actionable product insights, building dashboards, and working cross-functionally to improve user experience and product performance.</p>
@@ -856,7 +1022,7 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 <section id="experience">
   <div class="exp-intro">
     <div class="sec-label reveal">Experience</div>
-    <h2 class="sec-h2 reveal">Where I've<br/>Made Impact.</h2>
+    <h2 class="sec-h2 reveal">Where I've<br/><em>Made Impact.</em></h2>
   </div>
 
   <div class="timeline" id="timeline">
@@ -976,47 +1142,48 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 
 <!-- ───── GAME ───── -->
 <section id="game">
-  <div class="game-intro game-case">
-    <div class="game-copy reveal-left">
+  <div class="game-clean reveal">
+    <div class="game-copy game-copy-clean">
       <div class="game-tag">Playable Side Project</div>
-      <h2 class="game-title-big">Knightscroll<br/><em>as a product exercise.</em></h2>
-      <p class="game-desc">A browser-playable Python embed. Give it a try!</p>
+      <h2 class="game-title-big">Knightscroll<br/><em>a product exercise.</em></h2>
+      <p class="game-desc">A browser-playable Python project focused on clear goals, quick feedback, and no-setup interaction.</p>
     </div>
-    <div class="game-readout reveal-right" aria-label="Knightscroll product readout">
-      <article><span>Interactive Break</span><p>A small playable section to enhance visitor experience.</p></article>      
-      <article><span>Clear Design</span><p>The goal is clear and progress is visible, user-centric design.</p></article>
-      <article><span>Zero Setup</span><p>It runs directly in the browser with no download, account, install, or separate app required.</p></article>      
-      <article><span>Technical Constraint</span><p>Built for browser performance with tuned assets, timing, and cached effects for smoother play.</p></article>
-    </div>
-  </div>
 
-  <div class="game-stack reveal">
-    <span class="game-tag-chip">Python</span>
-    <span class="game-tag-chip">WASM</span>
-    <span class="game-tag-chip">UX Feedback</span>
-    <span class="game-tag-chip">Usability</span>
-    <span class="game-tag-chip">Performance Tuning</span>
-    <span class="game-tag-chip">Systems Thinking</span>
-  </div>
-
-  <div class="game-frame reveal">
-    <div class="game-topbar">
-      <div class="dots"><i></i><i></i><i></i></div>
-      <div class="topbar-title">knightscroll / main.py</div>
-    </div>
-    <div class="game-body">
-      <p class="mobile-game-note">Knightscroll is designed for desktop. Open this page on a laptop or monitor to play the embedded version.</p>
-      <div class="game-screen" id="gameScreen">
-        <iframe
-          class="game-iframe"
-          id="gameIframe"
-          src="./game/"
-          title="A Knight's Last Stand"
-          scrolling="no"
-          loading="lazy"
-          allow="fullscreen"
-        ></iframe>
+    <div class="game-frame">
+      <div class="game-topbar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="topbar-title">knightscroll / main.py</div>
       </div>
+
+      <div class="game-body">
+        <p class="mobile-game-note">Knightscroll is designed for desktop. Open this page on a laptop or monitor to play the embedded version.</p>
+        <div class="game-screen" id="gameScreen">
+          <iframe
+            class="game-iframe"
+            id="gameIframe"
+            src="./game/"
+            title="A Knight's Last Stand"
+            scrolling="no"
+            loading="lazy"
+            allow="fullscreen"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-proof" aria-label="Knightscroll project summary">
+      <article>
+        <span>Built With</span>
+        <p>Python · WASM · browser embed</p>
+      </article>
+      <article>
+        <span>Product Lens</span>
+        <p>Simple onboarding, visible progress, fast feedback.</p>
+      </article>
+      <article>
+        <span>Constraint</span>
+        <p>Runs inside the portfolio with no download or install.</p>
+      </article>
     </div>
   </div>
 </section>
