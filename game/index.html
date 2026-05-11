@@ -75,7 +75,10 @@ platform.window.infobox.innerHTML = """
 """
 
 platform.window.infobox.style.display = "flex"
-
+    
+while not platform.window.KNIGHTSCROLL_PLAY_REQUESTED:
+    await asyncio.sleep(.1)
+    
     # start async top level machinery if not started and add a console in any case if requested.
     await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
 
@@ -83,7 +86,8 @@ platform.window.infobox.style.display = "flex"
     # but we need to fill __file__/__name__ that are not yet set
     __import__(__name__).__file__ = main
 
-
+    
+    
     def ui_callback(pkg):
         print(f"installing {pkg}")
     
@@ -166,6 +170,8 @@ function show_infobox() {
     infobox.style.bottom = "0";
 }
 
+window.KNIGHTSCROLL_PLAY_REQUESTED = false;
+    
 </script>
 
     <title>knightscroll-main2</title>
