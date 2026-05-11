@@ -958,7 +958,7 @@ body,
 
   overflow: hidden !important;
   background: var(--surface) !important;
-  border-top: 1px solid var(--br) !important;
+  border-top: none !important;
   border-bottom: 1px solid var(--br) !important;
 
   display: flex !important;
@@ -1019,7 +1019,7 @@ body,
 }
 
 #logos .logo-cell:last-child {
-  border-right: 1px solid var(--br) !important;
+  border-right: none !important;
 }
 
 #logos .logo-cell::after {
@@ -1034,13 +1034,12 @@ body,
   max-height: 55px !important;
   object-fit: contain !important;
 
-  filter: grayscale(1) brightness(1.6) contrast(0.82) opacity(0.4) !important;
-  transition: filter .35s ease, transform .35s ease !important;
+    filter: grayscale(1) brightness(1.35) contrast(0.82) opacity(0.28) !important;
 }
 
 #logos .logo-cell:hover img {
-  filter: grayscale(0) brightness(1) contrast(1) opacity(1) !important;
-  transform: translateY(-3px) scale(1.04) !important;
+  filter: grayscale(1) brightness(1.5) contrast(0.85) opacity(0.55) !important;
+  transform: none !important;
 }
 
 @keyframes trueLogoMarquee {
@@ -1074,8 +1073,8 @@ body,
     min-height: 95px !important;
     padding: 0 10px !important;
 
-    border-right: 1px solid var(--br) !important;
-    border-bottom: 0 !important;
+    border-right: none !important;
+    border-bottom: 1px !important;
   }
 
   #logos .logo-cell img {
@@ -1103,46 +1102,14 @@ body,
 /* Remove logo carousel borders */
 #logos {
   border-top: none !important;
-  border-bottom: none !important;
 }
 
 #logos .logo-cell {
   border-right: none !important;
-  border-bottom: none !important;
 }
 
 #logos .logo-cell:last-child {
   border-right: none !important;
-}
-  
-/* Make logo section blend into the page */
-#logos {
-  border-top: none !important;
-  border-bottom: none !important;
-  background: var(--bg) !important;
-  position: relative !important;
-  overflow: hidden !important;
-}
-
-/* Soft center glow only, no hard top/bottom bands */
-#logos::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(216,169,59,0.035) 0%,
-    rgba(216,169,59,0.018) 32%,
-    transparent 68%
-  ) !important;
-  pointer-events: none !important;
-  z-index: 0 !important;
-}
-
-/* Keep logos above the glow */
-#logos .logos-mask {
-  position: relative !important;
-  z-index: 1 !important;
 }
   
 </style>
