@@ -965,7 +965,7 @@ body,
   height: 145px !important;
   --logo-speed: 45s;
 
-  padding: 0 0 2.75rem 0 !important;
+  padding: 1.25 rem 0 !important;
   margin: 0 !important;
   height: 92px !important;
 
@@ -1007,6 +1007,7 @@ body,
   flex-wrap: nowrap !important;
   flex: 0 0 auto !important;
   width: auto !important;
+  height: 100% !important;
   min-width: auto !important;
   gap: 0 !important;
 }
@@ -1015,6 +1016,8 @@ body,
   flex: 0 0 var(--logo-cell-w) !important;
   width: var(--logo-cell-w) !important;
   min-width: var(--logo-cell-w) !important;
+  min-height: 100% !important;
+  height: 100% !important;
   max-width: none !important;
 
   height: 105px !important;
@@ -1044,10 +1047,9 @@ body,
   height: auto !important;
   width: auto !important;
   max-width: 260px !important;
-  max-height: 55px !important;
+  max-height: 70px !important;
   object-fit: contain !important;
-
-    filter: grayscale(1) brightness(1.35) contrast(0.82) opacity(0.28) !important;
+  filter: grayscale(1) brightness(1.35) contrast(0.82) opacity(0.28) !important;
 }
 
 #logos .logo-cell:hover img {
@@ -1068,8 +1070,9 @@ body,
 @media (max-width: 768px) {
   #logos {
     --logo-cell-w: 220px;
-    height: 120px !important;
-    padding: 0 0 2rem 0 !important;
+    height: 125px !important;
+    min-height: 125px !important;
+    padding: 1rem 0 !important;
   }
 
   #logos .logos-set {
