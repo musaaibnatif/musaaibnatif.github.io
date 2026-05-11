@@ -962,15 +962,20 @@ body,
 
 #logos {
   padding-bottom: 2.9rem !important;
-  --logo-cell-w: 340px;
+  --logo-cell-w: 280px;
   height: 145px !important;
   --logo-speed: 45s;
   --logo-set-w: calc(var(--logo-cell-w) * 5);
 
-  padding: 1.25 rem 0 !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  
+  padding-top: 1.6rem !important;
+  padding-left: 0;
+  padding-right: 0;
   margin: 0 !important;
-  height: 92px !important;
-
+  
   overflow: hidden !important;
   background: var(--surface) !important;
   border-top: none !important;
@@ -988,6 +993,8 @@ body,
 #logos .logos-mask {
   width: 100% !important;
   overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 #logos .logos-track {
@@ -1024,7 +1031,8 @@ body,
 
   height: 105px !important;
   min-height: 105px !important;
-  padding: 0 15px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
 
   display: flex !important;
   align-items: center !important;
