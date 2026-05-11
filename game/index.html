@@ -62,32 +62,19 @@ async def custom_site():
     # TODO: test for window.webkitAudioContext and block aio loop until gesture if accessing media manager play
     # before a gesture is recorded ( touch or click )
 
-    # Always wait for the actual Play Game click inside /game/index.html.
-    # This prevents the game from starting just because the iframe loaded or the user scrolled past it.
-    __import__(__name__).__file__ = main
+__import__(__name__).__file__ = main
 
-    platform.window.infobox.innerHTML = """
+platform.window.infobox.innerHTML = """
 <div class="game-launch-card">
-    <div class="game-launch-kicker">Arcade</div>
+    <div class="game-launch-kicker">Loading</div>
     <div class="game-launch-title">A Knight&rsquo;s Last Stand</div>
     <div class="game-launch-desc">
-        Play directly in the browser.
-    </div>
-    <div class="game-launch-btn">
-        <span>Play Game</span>
+        Preparing the game...
     </div>
 </div>
 """
 
-    platform.window.infobox.style.display = "flex"
-
-    print("\n"*4, "    * Waiting for Play Game click. *" , "\n"*4)
-
-    while not platform.window.KNIGHTSCROLL_PLAY_REQUESTED:
-        await asyncio.sleep(.1)
-
-    while not platform.window.MM.UME:
-        await asyncio.sleep(.1)
+platform.window.infobox.style.display = "flex"
 
     # start async top level machinery if not started and add a console in any case if requested.
     await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
@@ -181,18 +168,6 @@ function show_infobox() {
     infobox.style.bottom = "0";
 }
 
-window.KNIGHTSCROLL_PLAY_REQUESTED = false;
-
-window.addEventListener("DOMContentLoaded", () => {
-    const infobox = document.getElementById("infobox");
-
-    if (infobox) {
-        infobox.addEventListener("click", () => {
-            window.KNIGHTSCROLL_PLAY_REQUESTED = true;
-        }, { once: true });
-    }
-});
-
 </script>
 
     <title>knightscroll-main2</title>
@@ -208,8 +183,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
-
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <style>
         #status {
             display: inline-block;
@@ -239,7 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 linear-gradient(135deg, #050507 0%, #0b0b12 50%, #050507 100%);
 
             color: #c8c2b8;
-            font-family: 'Syne', sans-serif;
+            font-family: 'JetBrains Mono', monospace;
             text-align: center;
             cursor: pointer;
         }
@@ -251,6 +225,7 @@ window.addEventListener("DOMContentLoaded", () => {
             background: rgba(13,13,20,0.96);
             text-align: center;
             box-shadow: 0 0 40px rgba(0,0,0,0.45);
+            overflow: visible;
         }
 
         .game-launch-kicker {
@@ -261,14 +236,16 @@ window.addEventListener("DOMContentLoaded", () => {
             color: #d4a843;
             margin-bottom: .9rem;
         }
-
+        
         .game-launch-title {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.4rem;
             letter-spacing: .06em;
             color: #f5f0e8;
-            line-height: 1;
-            margin-bottom: .9rem;
+            line-height: 1.14;
+            padding-bottom: .12em;
+            margin-bottom: .75rem;
+            overflow: visible;
         }
 
         .game-launch-desc {
@@ -327,7 +304,7 @@ window.addEventListener("DOMContentLoaded", () => {
         }
 
         body {
-            font-family: 'Syne', arial, sans-serif;
+            font-family: 'JetBrains Mono', monospace;
             margin: 0;
             padding: 0;
             background-color: #060608;
