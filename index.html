@@ -152,9 +152,10 @@ canvas#particles{position:absolute;inset:0;z-index:0}
 .exp-intro{max-width:1280px;margin:0 auto 5rem}
 /* vertical timeline */
 .timeline{max-width:900px;margin:0 auto;position:relative;padding-left:2.5rem}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--br)}
-.tl-progress{position:absolute;left:0;top:0;width:1px;height:0;background:var(--gold);transition:height .1s linear;pointer-events:none;z-index:1}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--br);left:0!important;transform:translateX(-50%)!important;}
+.tl-progress{position:absolute; left:0!important;width:2px!important;transform:translateX(-50%)!important;transform-origin:top center!important;z-index:2!important;height:0;background:var(--gold);transition:height .1s linear;pointer-events:none;z-index:1}
 .tl-item{position:relative;margin-bottom:3.5rem}
+.tl-item.passed .tl-dot-inner{background:var(--gold)!important;border-color:var(--gold)!important;box-shadow:0 0 18px rgba(216,169,59,.45)!important;}
 .tl-dot{position:absolute;left:-2.5rem;top:1.4rem;transform:translateX(-50%)}
 .tl-dot-inner{width:12px;height:12px;border:2px solid var(--gold-dim);background:var(--surface);transform:rotate(45deg);transition:background .3s,border-color .3s}
 .tl-item:hover .tl-dot-inner{background:var(--gold);border-color:var(--gold)}
@@ -1606,12 +1607,45 @@ function countUp(el){
 // ── TIMELINE DRAW PROGRESS ───────────────────────────────
 const tl=document.getElementById('timeline');
 const tlProg=document.getElementById('tlProgress');
+const tlItems=[...document.querySelectorAll('.tl-item')];
+
 if(tl&&tlProg){
-  window.addEventListener('scroll',()=>{
-    const r=tl.getBoundingClientRect();
-    const visible=Math.min(1,Math.max(0,(window.innerHeight-r.top)/(r.height+window.innerHeight)));
-    tlProg.style.height=(visible*100)+'%';
-  },{passive:true});
+  function updateTimelineProgress(){
+    const timelineRect=tl.getBoundingClientRect();
+
+    /*
+      The gold bar now follows the middle of the screen.
+      So when the center of the screen reaches the diamond,
+      the gold line touches it and the diamond fills.
+    */
+    const triggerY=window.innerHeight*0.5;
+
+    const progressPx=Math.min(
+      timelineRect.height,
+      Math.max(0,triggerY-timelineRect.top)
+    );
+
+    tlProg.style.height=progressPx+'px';
+
+    tlItems.forEach(item=>{
+      const dot=item.querySelector('.tl-dot');
+      if(!dot)return;
+
+      const dotRect=dot.getBoundingClientRect();
+
+      /*
+        This fills the diamond as soon as the gold line touches
+        the TOP of the diamond.
+      */
+      const diamondTop=dotRect.top-timelineRect.top;
+
+      item.classList.toggle('passed',progressPx>=diamondTop);
+    });
+  }
+
+  window.addEventListener('scroll',updateTimelineProgress,{passive:true});
+  window.addEventListener('resize',updateTimelineProgress);
+  updateTimelineProgress();
 }
 
 // ── MAGNETIC BUTTONS ─────────────────────────────────────
