@@ -964,6 +964,7 @@ body,
   --logo-cell-w: 340px;
   height: 145px !important;
   --logo-speed: 45s;
+  --logo-set-w: calc(var(--logo-cell-w) * 5);
 
   padding: 1.25 rem 0 !important;
   margin: 0 !important;
@@ -1001,14 +1002,14 @@ body,
 }
 
 #logos .logos-set {
-  gap: 6px !important;
-  padding-right: 6px !important;
+  padding-right: 0 !important;  
   display: flex !important;
   flex-wrap: nowrap !important;
-  flex: 0 0 auto !important;
+  flex: 0 0 var(--logo-set-w) !important;  
   width: auto !important;
   height: 100% !important;
-  min-width: auto !important;
+  width: var(--logo-set-w) !important;
+  min-width: var(--logo-set-w) !important;  
   gap: 0 !important;
 }
 
@@ -1063,7 +1064,7 @@ body,
   }
 
   to {
-    transform: translate3d(var(--logo-shift, -1100px), 0, 0);
+  transform: translate3d(calc(-1 * var(--logo-set-w)), 0, 0);
   }
 }
 
@@ -1387,18 +1388,43 @@ body,
   </div><!-- /timeline -->
 </section>
 
-
 <!-- ───── LOGO CAROUSEL ───── -->
 <div id="logos" class="reveal" aria-label="Companies and institutions">
   <div class="logos-mask">
-    <div class="logos-track" id="logosTrack">
-      <div class="logos-set" id="logosSet">
+    <div class="logos-track">
+
+      <div class="logos-set">
         <div class="logo-cell"><img src="assets/logos/sileria.png" alt="Sileria"/></div>
         <div class="logo-cell"><img src="assets/logos/lahd.png" alt="Los Angeles Housing Department"/></div>
         <div class="logo-cell"><img src="assets/logos/fika.png" alt="Fika Ventures"/></div>
         <div class="logo-cell"><img src="assets/logos/glazey.png" alt="Glazey"/></div>
         <div class="logo-cell"><img src="assets/logos/nirman.png" alt="Nirman"/></div>
       </div>
+
+      <div class="logos-set" aria-hidden="true">
+        <div class="logo-cell"><img src="assets/logos/sileria.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/lahd.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/fika.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/glazey.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/nirman.png" alt=""/></div>
+      </div>
+
+      <div class="logos-set" aria-hidden="true">
+        <div class="logo-cell"><img src="assets/logos/sileria.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/lahd.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/fika.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/glazey.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/nirman.png" alt=""/></div>
+      </div>
+
+      <div class="logos-set" aria-hidden="true">
+        <div class="logo-cell"><img src="assets/logos/sileria.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/lahd.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/fika.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/glazey.png" alt=""/></div>
+        <div class="logo-cell"><img src="assets/logos/nirman.png" alt=""/></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1643,7 +1669,6 @@ document.querySelectorAll('.btn-g,.btn-outline').forEach(btn=>{
 });
 
 // ── GAME IFRAME LOAD GATE ────────────────────────────────
-// ── GAME IFRAME LOAD GATE ────────────────────────────────
 const gameScreen = document.getElementById('gameScreen');
 const loadGameBtn = document.getElementById('loadGameBtn');
 const gameIframe = document.getElementById('gameIframe');
@@ -1665,39 +1690,8 @@ if (gameScreen && loadGameBtn && gameIframe) {
   });
 }
 
-// ── TRUE SEAMLESS LOGO MARQUEE ─────────────────────────
-function setupLogoMarquee() {
-  const track = document.getElementById('logosTrack');
-  const originalSet = document.getElementById('logosSet');
-
-  if (!track || !originalSet) return;
-
-  track.querySelectorAll('.logos-set.clone').forEach(clone => clone.remove());
-
-  const setWidth = originalSet.getBoundingClientRect().width;
-
-  if (!setWidth) return;
-
-  track.style.setProperty('--logo-shift', `-${setWidth}px`);
-
-  const neededSets = Math.ceil((window.innerWidth + setWidth) / setWidth) + 3;
-
-  for (let i = 1; i < neededSets; i++) {
-    const clone = originalSet.cloneNode(true);
-    clone.removeAttribute('id');
-    clone.classList.add('clone');
-    clone.setAttribute('aria-hidden', 'true');
-    track.appendChild(clone);
-  }
-}
-
+// LOGO MARQUEE
 window.addEventListener('load', setupLogoMarquee);
-
-let logoResizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(logoResizeTimer);
-  logoResizeTimer = setTimeout(setupLogoMarquee, 150);
-});
 
 // ── TYPEWRITER ───────────────────────────────────────────
 const tags=['Product Analyst · Product / Business / Data','Requirements → priorities → decisions','Tickets → patterns → product changes','Jira · ServiceNow · SQL · Python · Excel'];
