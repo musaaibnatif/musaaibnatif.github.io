@@ -962,7 +962,7 @@ body,
 
 #logos {
   padding-bottom: 2.9rem !important;
-  --logo-cell-w: 280px;
+  --logo-cell-w: 320px;
   height: 145px !important;
   --logo-speed: 45s;
   --logo-set-w: calc(var(--logo-cell-w) * 5);
@@ -1059,11 +1059,13 @@ body,
   max-width: 260px !important;
   max-height: 70px !important;
   object-fit: contain !important;
-  filter: grayscale(1) brightness(1.35) contrast(0.82) opacity(0.28) !important;
+  filter: grayscale(1) brightness(1.35) contrast(0.82) !important;
+  opacity(0.28);
 }
 
 #logos .logo-cell:hover img {
-  filter: grayscale(1) brightness(1.5) contrast(0.85) opacity(0.55) !important;
+  filter: grayscale(1) brightness(1.5) contrast(0.85) !important;
+  opacity(0.55);
   transform: none !important;
 }
 
@@ -1137,6 +1139,22 @@ body,
 
 #logos .logo-cell:last-child {
   border-right: none !important;
+}
+
+  /* Smooth out logo carousel movement */
+#logos .logos-track {
+  animation-timing-function: linear !important;
+  will-change: transform !important;
+  transform: translate3d(0, 0, 0) !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+#logos .logo-cell,
+#logos .logo-cell img {
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  transform: translateZ(0) !important;
 }
   
 </style>
