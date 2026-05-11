@@ -76,10 +76,6 @@ async def custom_site():
 
     platform.window.infobox.style.display = "flex"
 
-    # Wait until the root page's Load Game button sets this to true
-    while not platform.window.KNIGHTSCROLL_PLAY_REQUESTED:
-        await asyncio.sleep(.1)
-
     # Now start the game
     await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
 
@@ -165,8 +161,6 @@ function show_infobox() {
     infobox.style.right = "0";
     infobox.style.bottom = "0";
 }
-
-window.KNIGHTSCROLL_PLAY_REQUESTED = false;
     
 </script>
 
