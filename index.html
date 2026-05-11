@@ -1631,13 +1631,42 @@ document.querySelectorAll('.btn-g,.btn-outline').forEach(btn=>{
 const gameScreen=document.getElementById('gameScreen');
 const loadGameBtn=document.getElementById('loadGameBtn');
 const gameIframe=document.getElementById('gameIframe');
+
 if(gameScreen&&loadGameBtn&&gameIframe){
   loadGameBtn.addEventListener('click',()=>{
+    gameScreen.classList.add('game-loaded');
+
     if(!gameIframe.dataset.loaded){
       gameIframe.dataset.loaded='true';
+
+      gameIframe.addEventListener('load',()=>{
+        let tries=0;
+
+        const startGame=setInterval(()=>{
+          tries++;
+
+          try{
+            const w=gameIframe.contentWindow;
+
+            if(w){
+              w.KNIGHTSCROLL_PLAY_REQUESTED=true;
+
+              if(w.MM){
+                w.MM.UME=true;
+              }
+            }
+
+            if(tries>120){
+              clearInterval(startGame);
+            }
+          }catch(e){
+            clearInterval(startGame);
+          }
+        },100);
+      },{once:true});
+
       gameIframe.src=gameIframe.dataset.src;
     }
-    gameScreen.classList.add('game-loaded');
   });
 }
 
