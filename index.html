@@ -599,78 +599,6 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
   visibility:visible!important;
 }
 
-.game-load-overlay{
-  position:absolute;
-  inset:0;
-  z-index:5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:1.25rem;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(216,169,59,.13), transparent 48%),
-    linear-gradient(135deg,#060506 0%,#0b0907 55%,#060506 100%);
-  text-align:center;
-}
-
-.game-load-card{
-  width:min(420px,90%);
-  border:1px solid rgba(216,169,59,.18);
-  background:rgba(13,10,8,.94);
-  padding:2rem 1.45rem;
-  box-shadow:0 0 38px rgba(0,0,0,.42);
-}
-
-.game-load-kicker{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.58rem;
-  letter-spacing:.24em;
-  text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:.85rem;
-}
-
-.game-load-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2.35rem;
-  line-height:1;
-  letter-spacing:.06em;
-  color:var(--white);
-  margin-bottom:.8rem;
-}
-
-.game-load-desc{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.78rem;
-  line-height:1.65;
-  color:#8f8474;
-  margin-bottom:1.25rem;
-}
-
-.game-load-btn{
-  appearance:none;
-  border:1px solid var(--gold);
-  background:var(--gold);
-  color:var(--bg);
-  cursor:pointer;
-  font-family:'JetBrains Mono',monospace;
-  font-size:.68rem;
-  font-weight:600;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  padding:.88rem 1.85rem;
-  transition:transform .22s ease, background .22s ease, opacity .22s ease;
-}
-
-.game-load-btn:hover{
-  transform:translateY(-2px);
-  background:var(--gold2);
-}
-
-.game-screen.game-loaded .game-load-overlay{
-  display:none!important;
-}
-
 @media(max-width:1024px){
   .bridge-head{
     display:block!important;
@@ -1411,7 +1339,7 @@ body,
             <div class="game-load-card">
               <div class="game-load-kicker">Arcade</div>
               <div class="game-load-title">A Knight&rsquo;s Last Stand</div>
-              <div class="game-load-desc">The game files stay unloaded until you choose to launch them.</div>
+              <div class="game-load-desc">Click below to launch the game.</div>
               <button class="game-load-btn" id="loadGameBtn" type="button">Load Game</button>
             </div>
           </div>
@@ -1424,7 +1352,7 @@ body,
             title="A Knight's Last Stand"
             scrolling="no"
             tabindex="-1"
-            allow="autoplay; fullscreen; gamepad"
+            allow="fullscreen;"
           ></iframe>
         </div>
       </div>
@@ -1628,48 +1556,20 @@ document.querySelectorAll('.btn-g,.btn-outline').forEach(btn=>{
 });
 
 // ── GAME IFRAME LOAD GATE ────────────────────────────────
-const gameScreen=document.getElementById('gameScreen');
-const loadGameBtn=document.getElementById('loadGameBtn');
-const gameIframe=document.getElementById('gameIframe');
+const gameScreen = document.getElementById('gameScreen');
+const loadGameBtn = document.getElementById('loadGameBtn');
+const gameIframe = document.getElementById('gameIframe');
 
-if(gameScreen&&loadGameBtn&&gameIframe){
-  loadGameBtn.addEventListener('click',()=>{
+if (gameScreen && loadGameBtn && gameIframe) {
+  loadGameBtn.addEventListener('click', () => {
     gameScreen.classList.add('game-loaded');
 
-    if(!gameIframe.dataset.loaded){
-      gameIframe.dataset.loaded='true';
-
-      gameIframe.addEventListener('load',()=>{
-        let tries=0;
-
-        const startGame=setInterval(()=>{
-          tries++;
-
-          try{
-            const w=gameIframe.contentWindow;
-
-            if(w){
-              w.KNIGHTSCROLL_PLAY_REQUESTED=true;
-
-              if(w.MM){
-                w.MM.UME=true;
-              }
-            }
-
-            if(tries>120){
-              clearInterval(startGame);
-            }
-          }catch(e){
-            clearInterval(startGame);
-          }
-        },100);
-      },{once:true});
-
-      gameIframe.src=gameIframe.dataset.src;
+    if (!gameIframe.dataset.loaded) {
+      gameIframe.dataset.loaded = 'true';
+      gameIframe.src = gameIframe.dataset.src;
     }
   });
 }
-
 
 // ── TRUE SEAMLESS LOGO MARQUEE ─────────────────────────
 function setupLogoMarquee() {
