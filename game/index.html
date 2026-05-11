@@ -85,18 +85,16 @@ platform.window.infobox.style.display = "flex"
 
 
     def ui_callback(pkg):
-        platform.window.infobox.innerText = f"installing {pkg}"
-
-    await shell.source(main, callback=ui_callback)
-
-    # if you don't reach that step
-    # your main.py has an infinite sync loop somewhere !
-
+        print(f"installing {pkg}")
+    
+    # Hide the loading overlay before the game loop starts
     platform.window.infobox.style.display = "none"
     platform.window.config.gui_divider = 1
     platform.window.window_resize()
+    
+    await shell.source(main, callback=ui_callback)
+    
     print("default.tmpl: done")
-
     shell.interactive()
 
 asyncio.run( custom_site() )
