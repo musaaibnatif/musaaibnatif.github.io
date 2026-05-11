@@ -437,7 +437,92 @@ footer{padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space
 #game{
   overflow-x:hidden!important;
 }
+.game-screen{
+  position:relative;
+  width:min(780px,calc(100vw - 4rem));
+  aspect-ratio:1000/800;
+  margin:0 auto;
+  background:#08080d;
+  border:1px solid rgba(216,169,59,0.18);
+  overflow:hidden;
+  isolation:isolate;
+}
 
+.game-iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  background:#000;
+  overflow:hidden;
+}
+
+.game-load-overlay{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1.25rem;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(216,169,59,.13), transparent 48%),
+    linear-gradient(135deg,#060506 0%,#0b0907 55%,#060506 100%);
+  text-align:center;
+}
+
+.game-load-card{
+  width:min(420px,90%);
+  border:1px solid rgba(216,169,59,.18);
+  background:rgba(13,10,8,.94);
+  padding:2rem 1.45rem;
+  box-shadow:0 0 38px rgba(0,0,0,.42);
+}
+
+.game-load-kicker{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.58rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:.85rem;
+}
+
+.game-load-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.35rem;
+  line-height:1;
+  letter-spacing:.06em;
+  color:var(--white);
+  margin-bottom:.8rem;
+}
+
+.game-load-desc{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#8f8474;
+  margin-bottom:1.25rem;
+}
+
+.game-load-btn{
+  appearance:none;
+  border:1px solid var(--gold);
+  background:var(--gold);
+  color:var(--bg);
+  cursor:pointer;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  padding:.88rem 1.85rem;
+}
+
+.game-screen.game-loaded .game-load-overlay{
+  display:none!important;
+}
+  
 .game-intro{
   width:min(100%,1180px)!important;
   max-width:1180px!important;
@@ -1348,7 +1433,6 @@ body,
             class="game-iframe"
             id="gameIframe"
             data-src="./game/"
-            src="about:blank"
             title="A Knight's Last Stand"
             scrolling="no"
             tabindex="-1"
@@ -1556,18 +1640,25 @@ document.querySelectorAll('.btn-g,.btn-outline').forEach(btn=>{
 });
 
 // ── GAME IFRAME LOAD GATE ────────────────────────────────
+// ── GAME IFRAME LOAD GATE ────────────────────────────────
 const gameScreen = document.getElementById('gameScreen');
 const loadGameBtn = document.getElementById('loadGameBtn');
 const gameIframe = document.getElementById('gameIframe');
 
 if (gameScreen && loadGameBtn && gameIframe) {
-  loadGameBtn.addEventListener('click', () => {
-    gameScreen.classList.add('game-loaded');
+  // hard reset so the game cannot load before click
+  gameIframe.removeAttribute('src');
+  gameIframe.dataset.loaded = '';
 
-    if (!gameIframe.dataset.loaded) {
-      gameIframe.dataset.loaded = 'true';
-      gameIframe.src = gameIframe.dataset.src;
-    }
+  loadGameBtn.addEventListener('click', () => {
+    if (gameIframe.dataset.loaded === 'true') return;
+
+    gameIframe.dataset.loaded = 'true';
+    gameIframe.src = gameIframe.dataset.src;
+
+    gameIframe.addEventListener('load', () => {
+      gameScreen.classList.add('game-loaded');
+    }, { once: true });
   });
 }
 
